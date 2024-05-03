@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Sarthakdev143 | E-Commerce</title>
+    <link rel="stylesheet" href="/make-up/style.css">
+    <link rel="stylesheet" href="/make-up/Admin/products.css">
+    <link rel="stylesheet" href="/make-up/littles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+    <main class="container fdc">
+        <a class="back active" th:href="@{/admin-panel}">
+            <span class="icon material-symbols-outlined">
+                arrow_back
+            </span>
+            <span>Back To Admin Panel</span>
+        </a>
+        <table>
+            <thead id="thead">
+                <th>Id</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Product Discription</th>
+                <!-- <th>Product Image</th> -->
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <tr id="tr" th:each="product : ${products}">
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.description}"></td>
+                    <!-- <td><img th:src="@{/images/{id}(id=${product.id})}" alt="Product Image"></td> -->
+                    <td class="action">
+                        <a class="delete" th:href="@{/deleteProduct/{id}(id=${product.id})}">Delete</a>
+                        <a class="edit" th:href="@{/editProduct/{id}(id=${product.id})}">Edit</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div th:if="${#lists.isEmpty(products)}" style="text-align: center;">
+            <p style="color: #ffffff8f;">No Products Found.</p>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/make-up/Admin/admin.js"></script>
+</body>
+
+</html>

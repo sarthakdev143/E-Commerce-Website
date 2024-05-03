@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Sarthakdev143 | E-Commerce</title>
+    <link rel="stylesheet" href="/make-up/style.css">
+    <link rel="stylesheet" href="/make-up/Admin/admin-panel.css">
+    <link rel="stylesheet" href="/make-up/littles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+</head>
+
+<body>
+    <main class="container fdc">
+        <nav>
+            <h1 class="logo">Admin Panel</h1>
+            <ul type="none" class="flex">
+                <li class="list active"><a th:href="@{/products}">Inventory</a></li>
+                <li class="list"><a href="#" id="orders-link">Orders</a></li>
+                <li class="list"><a href="#" id="customers-link">Customers</a></li>
+                <li class="list active"><a class="logout" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </nav>
+
+        <!-- Display success message if present -->
+        <div th:if="${successMessage}" id="success-message" class="success-message">
+            <p th:text="${successMessage}"></p>
+        </div>
+
+        <!-- Add New Product Form -->
+        <section id="form-parent">
+            <h3>Add Product</h3>
+            <form class="form fdc" th:action="@{/saveProduct}" th:object="${newProduct}" method="post">
+                <input type="text" placeholder="Product Name" th:field="*{name}" required>
+                <input type="text" placeholder="Product Price" th:field="*{price}" required>
+                <textarea maxlength="100" style="max-width: 15rem; height: 5rem; max-height: 10rem;" cols="30" rows="10"
+                    placeholder="Product Description" th:field="*{description}" required></textarea>
+                <input type="file" name="image">
+                <button type="submit">Add Product</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/make-up/Admin/admin.js"></script>
+</body>
+
+</html>

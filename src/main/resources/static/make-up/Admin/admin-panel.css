@@ -1,0 +1,60 @@
+.container {
+    gap: 1rem;
+
+    nav {
+        width: inherit;
+        height: inherit;
+        display: flex;
+        align-items: center;
+        /* background: red; */
+
+        .logo {
+            font-weight: 100;
+        }
+
+        li {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+
+            .logout {
+                color: rgb(0, 157, 255);
+            }
+
+            a {
+                color: #C2C7B1;
+                text-decoration: none;
+            }
+
+            &:hover {
+                background: #ffffff10;
+            }
+        }
+    }
+
+    .success-message p {
+        width: fit-content;
+        height: fit-content;
+        padding: 1rem 2rem;
+        background: #0000003f;
+        border-radius: 1rem;
+        color: lightgreen;
+    }
+
+    #form-parent {
+        width: fit-content;
+        height: fit-content;
+        /* background: red; */
+        background: #0000003f;
+        border-radius: 1rem;
+        padding: 1.5rem;
+
+        h3 {
+            font-weight: 100;
+        }
+
+        input {
+            width: 21rem;
+        }
+    }
+}

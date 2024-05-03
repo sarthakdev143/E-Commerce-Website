@@ -1,0 +1,62 @@
+.container {
+    gap: 1rem;
+}
+
+.back {
+    color: #C2C7B1;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+
+    .icon {
+        transform: scale(0.7);
+    }
+
+    &:hover {
+        background: #ffffff10;
+    }
+}
+
+table {
+    width: 100%;
+    height: fit-content;
+
+    th {
+        width: 6rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    td {
+        padding: 2rem;
+        height: 2rem;
+        text-align: center;
+
+        .edit,
+        .delete {
+            transition: all ease 0.3s;
+            margin-left: 0.5rem;
+        }
+
+        .edit:hover {
+            color: greenyellow;
+        }
+
+        .delete:hover {
+            color: #ff0000;
+        }
+    }
+
+    tr:hover td {
+        background: #ffffff10;
+    }
+}
+
+a {
+    text-decoration: none;
+}

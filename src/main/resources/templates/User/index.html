@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page | Sarthakdev143 | E-Commerce</title>
+    <link rel="stylesheet" href="/make-up/style.css">
+    <link rel="stylesheet" href="/make-up/User/index.css">
+    <link rel="stylesheet" href="/make-up/littles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+</head>
+
+<body>
+    <nav>
+        <div class="part-1 flex">
+            <h2 class="h2">Landing Page</h2>
+            <h2 class="h2" style="display: flex; gap: 0.5rem; align-items: center; font-size: 1.25rem;">
+                <span>My Cart</span>
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+            </h2>
+        </div>
+        <input class="search" type="search">
+    </nav>
+    <main class="container">
+        <div id="productList">
+            <div class="product fdc" th:each="product : ${products}">
+                <div class="imgDiv">
+                    <img th:src="@{/images/{id}(id=${product.id})}" alt="Product Image">
+                </div>
+                <div class="content">
+                    <h4 th:text="${product.name}"></h4>
+                    <p th:text="${product.description}"></p>
+                    <h4 th:text="${product.price}"></h4>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/make-up/User/user.js"></script>
+</body>
+
+</html>
