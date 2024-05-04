@@ -33,4 +33,8 @@ public class ProductsService {
     public void deleteById(Long id) {
         productsRepository.deleteById(id);
     }
+
+    public ProductsBean findByName(String productName) {
+        return productsRepository.findByName(productName);
+    }
 }

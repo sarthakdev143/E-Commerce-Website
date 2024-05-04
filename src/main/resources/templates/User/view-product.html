@@ -7,6 +7,7 @@
     <title>E-Commerce | Sarthakdev143</title>
     <link rel="stylesheet" href="/make-up/style.css">
     <link rel="stylesheet" href="/make-up/User/index.css">
+    <link rel="stylesheet" href="/make-up/User/view-product.css">
     <link rel="stylesheet" href="/make-up/littles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
     <link rel="stylesheet"
@@ -14,7 +15,19 @@
 </head>
 
 <body>
-    <div th:replace="~{User/index::navbar}"></div>
+    <div style="overflow: hidden;" th:insert="~{User/index::navbar}"></div>
+
+    <main class="container flex">
+        <div class="imgDiv">
+            <img class="image" th:src="@{/images/{id}(id=${product.id})}" alt="Product Image">
+        </div>
+        <div class="content">
+            <h4 class="content-child" th:text="${product.name}"></h4>
+            <p class="content-child" th:text="${product.description}"></p>
+            <h4 class="content-child" th:text="${product.price}"></h4>
+            <a class="content-child" th:href="@{/addToCart/{name}(name=${product.name})}">Add To Cart</a>
+        </div>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
         integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="

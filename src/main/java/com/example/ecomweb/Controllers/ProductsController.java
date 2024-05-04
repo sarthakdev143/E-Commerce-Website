@@ -95,10 +95,10 @@ public class ProductsController {
                 .body(productsBean.getImage());
     }
 
-    @GetMapping("/viewProduct/{id}")
-    public String viewProduct(@PathVariable("id") Long id, Model model) {
-        ProductsBean productData = productsService.findById(id);
+    @GetMapping("/viewProduct/{name}")
+    public String viewProduct(@PathVariable("name") String productName, Model model) {
+        ProductsBean productData = productsService.findByName(productName);
         model.addAttribute("product", productData);
         return "User/view-product";
-    } 
+    }
 }

@@ -15,22 +15,31 @@
 
 <body>
     <nav th:fragment="navbar">
-        <h2 class="h2">Company Logo</h2>
-        <input class="search" type="search" placeholder="Search...">
-        <h2 class="h2 mycart">
-            <span>My Cart</span>
-            <span class="material-symbols-outlined">
-                shopping_cart
-            </span>
+        <h2 class="h2 pointer nav-part">Company Logo</h2>
+        <div class="center flex">
+            <input class="search nav-part" type="search" placeholder="Search...">
+        </div>
+        <h2 class="h2 mycart nav-part">
+            <div class="cart pointer">
+                <span>My Cart</span>
+                <span class="material-symbols-outlined">
+                    shopping_cart
+                </span>
+            </div>
+            <div class="logup">
+                <a th:href="@{/login}" class="login">Login</a>
+                <a th:href="@{/sign-up}" class="sign">Sign Up</a>
+            </div>
         </h2>
     </nav>
+
     <main class="container">
         <div id="productList">
             <div th:if="${#lists.isEmpty(products)}" style="text-align: center;">
                 <p style="color: #ffffff8f;">No Products Found.</p>
             </div>
-            <div class="product fdc" th:each="product : ${products}">
-                <a th:href="@{/viewProduct/{id}(id=${product.id})}">
+            <div class="product fdc pointer" th:each="product : ${products}">
+                <a target="_blank" th:href="@{/viewProduct/{name}(name=${product.name})}">
                     <div class="imgDiv">
                         <img th:src="@{/images/{id}(id=${product.id})}" alt="Product Image">
                     </div>
