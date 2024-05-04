@@ -1,6 +1,8 @@
 package com.example.ecomweb.Services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,10 @@ public class ProductsService {
 
     public ProductsBean findById(Long id) {
         return productsRepository.findById(id).get();
+    }
+
+    public Optional<ProductsBean> OptionalfindById(Long id) {
+        return productsRepository.findById(id);
     }
 
     public void deleteById(Long id) {

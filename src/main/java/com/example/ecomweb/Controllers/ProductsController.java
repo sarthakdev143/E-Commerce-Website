@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ecomweb.Entity.ProductsBean;
@@ -30,7 +31,11 @@ public class ProductsController {
 
     @PostMapping("/saveProduct")
     public String newProduct(@ModelAttribute("newProduct") ProductsBean newProduct,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, @RequestParam("image") byte[] file) {
+
+        newProduct.setImage(file);
+        newProduct.setImageType(file.toString());
+
         productsService.save(newProduct);
 
         // Add a flash attribute for the success message
@@ -57,17 +62,43 @@ public class ProductsController {
         return "redirect:/products";
     }
 
+    // public ResponseEntity<byte[]> getImage(@PathVariable("id") Long productId) {
+    // Optional<ProductsBean> productOptional =
+    // productsService.OptionalfindById(productId);
+
+    // if (productOptional.isPresent()) {
+    // ProductsBean productsBean = productOptional.get();
+    // byte[] image = productsBean.getImage();
+
+    // // Set headers for image response
+    // HttpHeaders headers = new HttpHeaders();
+    // headers.setContentType(MediaType.IMAGE_JPEG); // Change to appropriate type
+    // if not JPEG
+    // return new ResponseEntity<>(image, headers, HttpStatus.OK);
+    // } else {
+    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // }
+    // }
+
     @GetMapping("/images/{id}")
-    public ResponseEntity<byte[]> getImage(@PathVariable Long id) {
+    public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id) {
         ProductsBean productsBean = productsService.findById(id);
         if (productsBean == null || productsBean.getImage() == null) {
             System.out.println("Product or image not found for ID: " + id);
             return ResponseEntity.notFound().build();
         }
 
-        System.out.println("Loading Image");
+        System.out.println();
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, productsBean.getImageType())
                 .body(productsBean.getImage());
-    }                   
+    }
+
+    @GetMapping("/viewProduct/{id}")
+    public String viewProduct(@PathVariable("id") Long id, Model model) {
+        ProductsBean productData = productsService.findById(id);
+        model.addAttribute("product", productData);
+        return "User/view-product";
+    } 
 }
