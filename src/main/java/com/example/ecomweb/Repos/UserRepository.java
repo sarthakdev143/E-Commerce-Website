@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.example.ecomweb.Entity.UserBean;
 
 @Repository
-
 public interface UserRepository extends CrudRepository<UserBean, Integer> {
 }
