@@ -20,12 +20,14 @@
             <input class="search nav-part" type="search" placeholder="Search...">
         </div>
         <h2 class="h2 mycart nav-part">
-            <div class="cart pointer">
-                <span>My Cart</span>
-                <span class="material-symbols-outlined">
-                    shopping_cart
-                </span>
-            </div>
+            <a target="_blank" th:href="@{/cart}">
+                <div class="cart pointer">
+                    <span>My Cart</span>
+                    <span class="material-symbols-outlined">
+                        shopping_cart
+                    </span>
+                </div>
+            </a>
             <div class="logup">
                 <a th:href="@{/login}" class="login">Login</a>
                 <a th:href="@{/sign-up}" class="sign">Sign Up</a>

@@ -4,7 +4,6 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 2rem;
-    margin-top: 1rem;
     z-index: 9000;
 
     .center {
@@ -26,7 +25,8 @@ nav {
         }
 
         .search {
-            width: 20rem;
+            width: 25rem;
+            margin-left: 3rem;
         }
     }
 
@@ -39,6 +39,11 @@ nav {
         gap: 0.5rem;
         align-items: center;
         font-size: 1.25rem;
+
+        a {
+            text-decoration: none;
+            color: #C2C7B1;
+        }
 
         .cart {
             display: flex;

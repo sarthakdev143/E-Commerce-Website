@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart | Sarthakdev143 | E-Commerce</title>
+    <link rel="stylesheet" href="/make-up/style.css">
+    <link rel="stylesheet" href="/make-up/User/index.css">
+    <link rel="stylesheet" href="/make-up/User/cart.css">
+    <link rel="stylesheet" href="/make-up/littles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+</head>
+
+<body>
+    <div th:replace="~{User/index::navbar}"></div>
+
+    <main class="container">
+        <h1>Your Shopping Cart</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cartItem : ${cartItems}">
+                    <td th:text="${cartItem.product.name}"></td>
+                    <td>
+                        <form th:action="@{/cart/updateQuantity}" method="post">
+                            <input type="number" th:value="${cartItem.quantity}" name="quantity" min="1" />
+                            <input type="hidden" th:value="${cartItem.id}" name="cartItemId" />
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+                    <td th:text="${cartItem.product.price}"></td>
+                    <td th:text="${cartItem.totalPrice}"></td>
+                    <td>
+                        <form th:action="@{/cart/remove}" method="post">
+                            <input type="hidden" th:value="${cartItem.id}" name="cartItemId" />
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div th:if="${#lists.isEmpty(cartItems)}" style="text-align: center;">
+            <p style="color: #ffffff8f;">Your Cart is Empty.</p>
+        </div>
+
+        <h2 th:text="'Total Price: ' + ${totalPrice}"></h2>
+
+        <a href="@{/checkout}" class="btn btn-success">Proceed to Checkout</a>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/make-up/User/user.js"></script>
+</body>
+
+</html>
