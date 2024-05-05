@@ -7,6 +7,7 @@ import com.example.ecomweb.Repos.UserRepository;
 
 @Service
 public class UserServices {
+    @SuppressWarnings("unused")
     @Autowired
     private UserRepository repo;
 }

@@ -1,27 +1,34 @@
 package com.example.ecomweb.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "ecomcart")
 public class CartBean {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private int userId;
-    private int productId;
-    private int quantity;
-    private double totalPrice;
+    private Integer id;
+
+    // One-to-many relationship with CartItemBean
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItemBean> items = new ArrayList<>();
+
+    // Calculate the total cost of the cart based on the total cost of the items
+    public long calculateTotalCost() {
+        long totalCost = 0;
+        for (CartItemBean item : items) {
+            totalCost += item.getTotalCost();
+        }
+        return totalCost;
+    }
+
 }

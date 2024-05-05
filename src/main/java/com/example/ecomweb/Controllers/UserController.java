@@ -8,6 +8,7 @@ import com.example.ecomweb.Services.UserServices;
 
 @Controller
 public class UserController {
+    @SuppressWarnings("unused")
     @Autowired
     private UserServices services;
 
