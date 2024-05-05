@@ -1,10 +1,8 @@
 package com.example.ecomweb.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @NoArgsConstructor
@@ -15,9 +13,17 @@ import lombok.*;
 @Entity
 @Table(name = "ecomusers")
 public class UserBean {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String name, address;
-    private long phoneNumber;    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NotNull
+    @Size(min = 1, max = 100)
+    private String name;
+
+    @NotNull
+    private String address;
+
+    private long phoneNumber;
 }

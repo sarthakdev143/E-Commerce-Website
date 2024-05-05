@@ -61,7 +61,8 @@ public class ProductsController {
         productsService.save(newProduct);
         return "redirect:/products";
     }
-
+    
+    // @GetMapping("/images/{id}")
     // public ResponseEntity<byte[]> getImage(@PathVariable("id") Long productId) {
     // Optional<ProductsBean> productOptional =
     // productsService.OptionalfindById(productId);
