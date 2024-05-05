@@ -17,7 +17,7 @@ import lombok.*;
 public class UserBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String name, address;
-    private long phoneNumber;    
+    private Long phoneNumber;    
 }
