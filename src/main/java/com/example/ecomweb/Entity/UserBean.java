@@ -18,6 +18,6 @@ public class UserBean {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name, address;
-    private Long phoneNumber;    
+    private String name, password;
+    private String email;
 }

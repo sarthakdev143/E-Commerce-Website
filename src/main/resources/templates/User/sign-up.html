@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce | Sarthakdev143</title>
+    <link rel="stylesheet" href="/make-up/style.css">
+    <link rel="stylesheet" href="/make-up/User/index.css">
+    <link rel="stylesheet" href="/make-up/User/logup.css">
+    <link rel="stylesheet" href="/make-up/littles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,100,0,0" />
+</head>
+
+<body>
+    <div style="overflow: hidden;" th:insert="~{User/index::navbar}"></div>
+
+    <main class="container flex" align="center">
+        <form align="center" class="fdc" th:action="@{/saveAccount}" th:object="${accountObj}" method="post">
+            <h1>Create New Account.</h1>
+            <input class="input" type="text" placeholder="Name.." th:field="*{name}" required>
+            <input class="input" type="email" placeholder="Email.." th:field="*{email}" required>
+            <input class="input" type="text" placeholder="Password.." th:field="*{password}" minlength="6" required>
+            <input class="button" type="submit" value="Create Account">
+        </form>
+        <div class="other fdc">
+            <a th:href="@{/sign-up}" class="message" th:if="${message != null}" th:text="${message}"></a>
+            <p>Already have an Account? <a href="/login">Login</a></p>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/make-up/User/user.js"></script>
+</body>
+
+</html>

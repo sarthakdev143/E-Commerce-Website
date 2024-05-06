@@ -15,9 +15,9 @@ public class CartItemBean {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    // @ManyToOne
-    // @JoinColumn(name = "cart_id", nullable = false)
-    // private CartBean cart;
+    @ManyToOne
+    @JoinColumn(name = "cart_id", nullable = false)
+    private CartBean cart;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)

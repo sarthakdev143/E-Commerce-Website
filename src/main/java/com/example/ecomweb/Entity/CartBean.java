@@ -30,5 +30,4 @@ public class CartBean {
         }
         return totalCost;
     }
-
 }

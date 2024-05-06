@@ -30,3 +30,14 @@ tl2.from(".content-child", {
     y: -20,
     stagger: 0.2
 })
+
+// User Already Registered Text Change
+let message = document.querySelector(".message")
+
+message.addEventListener("mouseenter", () => {
+    message.innerHTML = "Click To Refresh The Page"
+})
+
+message.addEventListener("mouseout", () => {
+    message.innerHTML = "Email is Already Registered"
+})

@@ -15,12 +15,12 @@
 
 <body>
     <nav th:fragment="navbar">
-        <h2 class="h2 pointer nav-part">Company Logo</h2>
+        <h2 class="h2 pointer nav-part"><a th:href="@{/}" style="color: #C2C7B1; text-decoration: none;">Company Logo</a></h2>
         <div class="center flex">
             <input class="search nav-part" type="search" placeholder="Search...">
         </div>
         <h2 class="h2 mycart nav-part">
-            <a target="_blank" th:href="@{/cart}">
+            <a th:href="@{/cart}">
                 <div class="cart pointer">
                     <span>My Cart</span>
                     <span class="material-symbols-outlined">
