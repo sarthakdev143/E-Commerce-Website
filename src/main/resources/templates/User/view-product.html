@@ -25,7 +25,9 @@
             <h4 class="content-child" th:text="${product.name}"></h4>
             <p class="content-child" th:text="${product.description}"></p>
             <h4 class="content-child" th:text="${product.price}"></h4>
-            <a class="content-child" th:href="@{/addToCart/{name}(name=${product.name})}">Add To Cart</a>
+            <a class="content-child" th:href="@{/addToCart/{name}(name=${product.name})}">
+                <button>Add To Cart</button>
+            </a>
         </div>
     </main>
 

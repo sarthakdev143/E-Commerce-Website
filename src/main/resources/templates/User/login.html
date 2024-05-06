@@ -18,17 +18,15 @@
     <div style="overflow: hidden;" th:insert="~{User/index::navbar}"></div>
 
     <main class="container flex" align="center">
-        <form align="center" class="fdc" th:action="@{/saveAccount}" th:object="${accountObj}" method="post">
+        <form align="center" class="fdc" th:action="@{/login}" method="post">
             <h1 id="heading">Create New Account.</h1>
-            <input class="inpAnim input" type="text" placeholder="Name.." th:field="*{name}" required>
-            <input class="inpAnim input" type="email" placeholder="Email.." th:field="*{email}" required>
-            <input class="inpAnim input" type="text" placeholder="Password.." th:field="*{password}" minlength="6"
-                required>
-            <input class="inpAnim button" type="submit" value="Create Account">
+            <input class="inpAnim input" type="email" placeholder="Email.." name="email" required>
+            <input class="inpAnim input" type="text" placeholder="Password.." name="password" minlength="6" required>
+            <input class="inpAnim button" type="submit" value="Login">
         </form>
         <div class="other fdc">
             <a th:href="@{/sign-up}" class="message" th:if="${message != null}" th:text="${message}"></a>
-            <p>Already have an Account? <a href="/login">Login</a></p>
+            <p>Already have an Account? <a href="/sign-up">Create Account</a></p>
         </div>
     </main>
 

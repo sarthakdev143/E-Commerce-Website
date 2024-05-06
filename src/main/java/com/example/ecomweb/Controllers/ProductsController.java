@@ -35,7 +35,6 @@ public class ProductsController {
 
         newProduct.setImage(file);
         newProduct.setImageType(file.toString());
-
         productsService.save(newProduct);
 
         // Add a flash attribute for the success message
@@ -61,7 +60,7 @@ public class ProductsController {
         productsService.save(newProduct);
         return "redirect:/products";
     }
-    
+
     // @GetMapping("/images/{id}")
     // public ResponseEntity<byte[]> getImage(@PathVariable("id") Long productId) {
     // Optional<ProductsBean> productOptional =

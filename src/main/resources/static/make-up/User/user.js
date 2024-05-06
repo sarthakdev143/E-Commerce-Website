@@ -2,7 +2,8 @@ gsap.from(".nav-part", {
     opacity: 0,
     duration: 0.5,
     y: -20,
-    stagger: 0.2
+    stagger: 0.2,
+    ease: "back.out(3)",    
 })
 
 let tl1 = gsap.timeline()
@@ -12,12 +13,12 @@ tl1.from(".product", {
     duration: 0.3,
     y: -20,
     stagger: 0.15,
+    ease: "back.out(2)",    
 })
 
-gsap.from(".image", {
+tl1.from(".image", {
     opacity: 0,
     duration: 0.3,
-    delay: 0.3,
     y: -20,
 })
 
@@ -28,7 +29,30 @@ tl2.from(".content-child", {
     duration: 0.6,
     delay: 0.3,
     y: -20,
-    stagger: 0.2
+    stagger: 0.2,
+})
+
+// Login & Sign Up Page Form Loads
+gsap.from("#heading", {
+    opacity: 0,
+    duration: 1.5,
+    y: -40,
+    ease: "back.out(3)",
+})
+
+let tl3 = gsap.timeline()
+
+tl3.from(".inpAnim", {
+    opacity: 0,
+    duration: 0.5,
+    y: -20,
+    stagger: 0.2,
+    ease: "back.out(5)",
+})
+
+tl3.from(".other", {
+    opacity: 0,
+    duration: 0.5,
 })
 
 // User Already Registered Text Change

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.ecomweb.DTOs.ProductsDto;
 import com.example.ecomweb.Entity.ProductsBean;
 import com.example.ecomweb.Services.ProductsService;
 
@@ -25,7 +26,7 @@ public class ExtraController {
 
     @GetMapping("/admin-panel")
     public String adminHome(Model model) {
-        ProductsBean newProduct = new ProductsBean();
+        ProductsDto newProduct = new ProductsDto();
         model.addAttribute("newProduct", newProduct);
 
         // Check for a flash attribute containing a success message
