@@ -1,6 +1,6 @@
 package com.example.ecomweb.Services;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +20,14 @@ public class UserServices {
     // Find User By Email
     public UserBean findUserByEmail(String email) {
         return repo.findByEmail(email);
+    }
+
+    public List<UserBean> getAllUsers() {
+        List<UserBean> listOfUsers = (List<UserBean>) repo.findAll();
+        return listOfUsers;
+    }
+
+    public void deleteUser(Integer id) {
+        repo.deleteById(id);
     }
 }

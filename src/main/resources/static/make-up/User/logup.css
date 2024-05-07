@@ -35,3 +35,7 @@ form {
     justify-content: center;
     gap: 0.6rem;
 }
+
+.verify-form {
+    margin-top: -2rem;
+}

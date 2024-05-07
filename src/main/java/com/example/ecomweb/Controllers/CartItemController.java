@@ -7,6 +7,7 @@ import com.example.ecomweb.Services.CartItemService;
 
 @Controller
 public class CartItemController {
+    @SuppressWarnings("unused")
     @Autowired
     private CartItemService cartItemService;
 }

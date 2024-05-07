@@ -24,26 +24,26 @@
         <table>
             <thead id="thead">
                 <th>Id</th>
-                <th>Product Name</th>
-                <th>Product Price</th>
-                <th>Product Discription</th>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>User Password</th>
                 <th>Action</th>
             </thead>
             <tbody>
-                <tr id="tr" th:each="product : ${products}">
-                    <td th:text="${product.id}"></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.price}"></td>
-                    <td th:text="${product.description}"></td>
+                <tr id="tr" th:each="user : ${users}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.password}"></td>
                     <td class="action">
-                        <a class="delete" th:href="@{/deleteProduct/{id}(id=${product.id})}">Delete</a>
-                        <a class="edit" th:href="@{/editProduct/{id}(id=${product.id})}">Edit</a>
+                        <a class="delete" th:href="@{/deleteUser/{id}(id=${user.id})}">Delete</a>
+                        <a class="edit" th:href="@{/editUser/{id}(id=${user.id})}">Edit</a>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <div th:if="${#lists.isEmpty(products)}" style="text-align: center;">
-            <p style="color: #ffffff8f;">No Product Found.</p>
+        <div th:if="${#lists.isEmpty(users)}" style="text-align: center;">
+            <p style="color: #ffffff8f;">No User Found.</p>
         </div>
     </main>
 

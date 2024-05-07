@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account | E-Commerce | Sarthakdev143</title>
+    <title>E-Commerce | Sarthakdev143</title>
     <link rel="stylesheet" href="/make-up/style.css">
     <link rel="stylesheet" href="/make-up/User/index.css">
     <link rel="stylesheet" href="/make-up/User/logup.css">
@@ -17,17 +17,22 @@
 <body>
     <div style="overflow: hidden;" th:insert="~{User/index::navbar}"></div>
 
-    <main class="container flex" align="center">
-        <form align="center" class="fdc" th:action="@{/saveAccount}" th:object="${accountObj}" method="post">
-            <h1 id="heading">Create New Account.</h1>
-            <input class="inpAnim input" type="text" placeholder="Name.." th:field="*{name}" required>
-            <input class="inpAnim input" type="email" placeholder="Email.." th:field="*{email}" required>
-            <input class="inpAnim input" type="text" placeholder="Password.." th:field="*{password}" minlength="6"
-                required>
-            <input class="inpAnim button" type="submit" value="Create Account">
-        </form>
+    <main class="container fdc" align="center">
+        <div>
+            <h1 id="heading">Verify Your Email</h1>
+            <p class="para">An OTP has been sent to your email. Please enter it below to verify your account.</p>
+            <form class="verify-form fdc" th:action="@{/verifyEmail}" th:object="${accountObj}" method="post">
+                <input class="inpAnim input" type="text" placeholder="Name.." th:field="*{name}" required hidden>
+                <input class="inpAnim input" type="email" placeholder="Email.." th:field="*{email}" required hidden>
+                <input class="inpAnim input" type="text" placeholder="Password.." th:field="*{password}" minlength="6"
+                    required hidden>
+                <input class="inpAnim" type="text" placeholder="Verification Code" th:field="*{verificationCode}"
+                    required>
+                <input class="inpAnim" type="submit" value="Verify">
+            </form>
+        </div>
         <div class="other fdc">
-            <a th:href="@{/sign-up}" class="message" th:if="${message != null}" th:text="${message}"></a>
+            <!-- <a th:href="@{/sign-up}" class="message" th:if="${message != null}" th:text="${message}"></a> -->
             <p>Already have an Account? <a href="/login">Login</a></p>
         </div>
     </main>

@@ -20,6 +20,6 @@ public class UserBean {
     private Long id;
     private String name, password;
     private String email;
-
-    
+    private String verificationCode;
+    private Boolean isVerified = false;
 }
