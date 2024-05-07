@@ -20,19 +20,19 @@
     <main class="container fdc" align="center">
         <div>
             <h1 id="heading">Verify Your Email</h1>
-            <p class="para">An OTP has been sent to your email. Please enter it below to verify your account.</p>
+            <p class="para" th:if="${message} == null">An OTP has been sent to your email. Please enter it below to verify your account.</p>
             <form class="verify-form fdc" th:action="@{/verifyEmail}" th:object="${accountObj}" method="post">
                 <input class="inpAnim input" type="text" placeholder="Name.." th:field="*{name}" required hidden>
                 <input class="inpAnim input" type="email" placeholder="Email.." th:field="*{email}" required hidden>
                 <input class="inpAnim input" type="text" placeholder="Password.." th:field="*{password}" minlength="6"
-                    required hidden>
+                required hidden>
                 <input class="inpAnim" type="text" placeholder="Verification Code" th:field="*{verificationCode}"
-                    required>
+                required>
                 <input class="inpAnim" type="submit" value="Verify">
             </form>
         </div>
         <div class="other fdc">
-            <!-- <a th:href="@{/sign-up}" class="message" th:if="${message != null}" th:text="${message}"></a> -->
+            <p class="incorrect-otp" th:if="${message} != null" th:text="${message}"></p>
             <p>Already have an Account? <a href="/login">Login</a></p>
         </div>
     </main>

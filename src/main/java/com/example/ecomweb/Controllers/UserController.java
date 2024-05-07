@@ -58,7 +58,16 @@ public class UserController {
         }
     }
 
-    // @GetMapping
+    @PostMapping("verifyEmail")
+    public String verifyEmail(@ModelAttribute("accountObj") UserBean userBean, Model model) {
+        if (genratedOtp.equals(userBean.getVerificationCode())) {
+            userServices.saveUser(userBean);
+            return "redirect:/login";
+        } else {
+            model.addAttribute("message", "OTP is incorrect! Pls Check The OTP You Have Entered");
+            return "User/verify-email";
+        }
+    }
 
     private String generateOtp() {
         // 6 Digit OTP
