@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products | Sarthakdev143 | E-Commerce</title>
+    <title>Users | Sarthakdev143 | E-Commerce</title>
     <link rel="stylesheet" href="/make-up/style.css">
     <link rel="stylesheet" href="/make-up/Admin/products.css">
     <link rel="stylesheet" href="/make-up/littles.css">
@@ -27,6 +27,7 @@
                 <th>User Name</th>
                 <th>User Email</th>
                 <th>User Password</th>
+                <th>Login Status</th>
                 <th>Action</th>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.password}"></td>
+                    <td th:text="${user.Loggedin}"></td>
                     <td class="action">
                         <a class="delete" th:href="@{/deleteUser/{id}(id=${user.id})}">Delete</a>
                         <a class="edit" th:href="@{/editUser/{id}(id=${user.id})}">Edit</a>

@@ -27,7 +27,7 @@
             <input class="inpAnim button" type="submit" value="Create Account">
         </form>
         <div class="other fdc">
-            <a th:href="@{/sign-up}" class="message" th:if="${message != null}" th:text="${message}"></a>
+            <a th:href="@{/sign-up}" class="message already-registered" th:if="${message != null}" th:text="${message}"></a>
             <p>Already have an Account? <a href="/login">Login</a></p>
         </div>
     </main>

@@ -68,7 +68,7 @@ gsap.to(".verify-form", {
 });
 
 // User Already Registered Text Change
-let message = document.querySelector(".message")
+let message = document.querySelector(".already-registered")
 
 message.addEventListener("mouseenter", () => {
     message.innerHTML = "Click To Refresh The Page"

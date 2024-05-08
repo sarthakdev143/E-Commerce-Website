@@ -1,5 +1,7 @@
 package com.example.ecomweb.Controllers;
 
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,16 @@ public class UserController {
     @Autowired
     private EmailService emailService;
 
+    @GetMapping("/login")
+    public String login(@ModelAttribute("message") String message, Model model) {
+        String message2 = "Successfully Created Account, You May Log in To Your Account Now";
+        if (message != message2) {
+            message = null;
+        }
+        model.addAttribute("message", message);
+        return "User/login";
+    }
+
     @GetMapping("/sign-up")
     public String getSignUp(Model model) {
         UserBean userBean = new UserBean();
@@ -31,14 +43,15 @@ public class UserController {
         return "User/sign-up";
     }
 
-    String genratedOtp;
+    private String genratedOtp;
 
     @PostMapping("/saveAccount")
     public String saveAccount(@ModelAttribute("accountObj") UserBean userBean, Model model,
             RedirectAttributes redirectAttributes) {
-        UserBean existingUser = userServices.findUserByEmail(userBean.getEmail());
+        List<UserBean> existingUserOpt = userServices.findUserByEmail(userBean.getEmail());
 
-        if (existingUser != null) {
+        System.out.println("List = " + existingUserOpt);
+        if (existingUserOpt == null) {
             model.addAttribute("message", "Email is already registered");
             return "User/sign-up";
         } else {
@@ -51,6 +64,8 @@ public class UserController {
             } catch (MessagingException e) {
                 System.out.println("\nPrinting Exception");
                 e.printStackTrace();
+                model.addAttribute("message", "Error sending email. Please try again later.");
+                return "User/sign-up";
             }
 
             model.addAttribute("accountObj", userBean);
@@ -59,9 +74,13 @@ public class UserController {
     }
 
     @PostMapping("verifyEmail")
-    public String verifyEmail(@ModelAttribute("accountObj") UserBean userBean, Model model) {
+    public String verifyEmail(@ModelAttribute("accountObj") UserBean userBean, Model model,
+            RedirectAttributes redirectAttributes) {
         if (genratedOtp.equals(userBean.getVerificationCode())) {
+            userBean.setLoggedin(false);
             userServices.saveUser(userBean);
+            redirectAttributes.addFlashAttribute("message",
+                    "Successfully Created Account, You May Log in To Your Account Now");
             return "redirect:/login";
         } else {
             model.addAttribute("message", "OTP is incorrect! Pls Check The OTP You Have Entered");

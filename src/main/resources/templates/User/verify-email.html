@@ -18,7 +18,7 @@
     <div style="overflow: hidden;" th:insert="~{User/index::navbar}"></div>
 
     <main class="container fdc" align="center">
-        <div>
+        <div align="center">
             <h1 id="heading">Verify Your Email</h1>
             <p class="para" th:if="${message} == null">An OTP has been sent to your email. Please enter it below to verify your account.</p>
             <form class="verify-form fdc" th:action="@{/verifyEmail}" th:object="${accountObj}" method="post">

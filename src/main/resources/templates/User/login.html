@@ -17,15 +17,15 @@
 <body>
     <div style="overflow: hidden;" th:insert="~{User/index::navbar}"></div>
 
-    <main class="container flex" align="center">
+    <main class="container fdc" align="center">
         <form align="center" class="fdc" th:action="@{/login}" method="post">
-            <h1 id="heading">Create New Account.</h1>
+            <h1 id="heading">Log in.</h1>
             <input class="inpAnim input" type="email" placeholder="Email.." name="email" required>
             <input class="inpAnim input" type="text" placeholder="Password.." name="password" minlength="6" required>
             <input class="inpAnim button" type="submit" value="Login">
         </form>
         <div class="other fdc">
-            <a th:href="@{/sign-up}" class="message" th:if="${message != null}" th:text="${message}"></a>
+            <p class="message" th:if="${message != null}" th:text="${message}"></p>
             <p>Already have an Account? <a href="/sign-up">Create Account</a></p>
         </div>
     </main>

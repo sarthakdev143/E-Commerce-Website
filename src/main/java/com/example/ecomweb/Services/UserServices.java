@@ -1,8 +1,10 @@
 package com.example.ecomweb.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.ecomweb.Entity.UserBean;
@@ -18,8 +20,9 @@ public class UserServices {
     }
 
     // Find User By Email
-    public UserBean findUserByEmail(String email) {
-        return repo.findByEmail(email);
+    public List<UserBean> findUserByEmail(String email) {
+        List<UserBean> users = repo.findByEmail(email);
+        return users;
     }
 
     public List<UserBean> getAllUsers() {

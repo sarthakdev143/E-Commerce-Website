@@ -21,5 +21,5 @@ public class UserBean {
     private String name, password;
     private String email;
     private String verificationCode;
-    private Boolean isVerified = false;
+    private Boolean Loggedin = false;
 }
