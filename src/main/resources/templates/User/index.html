@@ -43,7 +43,7 @@
             <div class="product fdc pointer" th:each="product : ${products}">
                 <a target="_blank" th:href="@{/viewProduct/{name}(name=${product.name})}">
                     <div class="imgDiv">
-                        <img th:src="@{/images/{id}(id=${product.id})}" alt="Product Image">
+                        <img loading="lazy" class="image" th:src="@{/images/{name}(name=${product.name})}" alt="Product Image">
                     </div>
                     <div class="content">
                         <h4 th:text="${product.name}"></h4>

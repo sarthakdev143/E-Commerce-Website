@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ecomweb.Entity.ProductsBean;
 import com.example.ecomweb.Entity.UserBean;
+import com.example.ecomweb.Repos.ProductsRepository;
 import com.example.ecomweb.Services.EmailService;
 import com.example.ecomweb.Services.ProductsService;
 import com.example.ecomweb.Services.UserServices;
@@ -37,19 +38,24 @@ public class UserLogupController {
     @Autowired
     private ProductsService productsService;
 
-    @GetMapping("/download/{id}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable("id") Long id) {
-        Optional<ProductsBean> fileOptional = productsService.findById(id);
+    @Autowired
+    private ProductsRepository productsRepository;
+
+    @GetMapping("/images/{name}")
+    public ResponseEntity<Resource> getImage(@PathVariable("name") String name) {
+        Optional<ProductsBean> fileOptional = Optional.ofNullable(productsRepository.findByName(name));
         if (fileOptional.isPresent()) {
-            ProductsBean file = fileOptional.get();
+            ProductsBean productsBean = fileOptional.get();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setCacheControl("max-age=31536000");
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName()+ "\"")
-                    .body(new ByteArrayResource(file.getImage()));
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + productsBean.getName() + "\"")
+                    .body(new ByteArrayResource(productsBean.getImage()));
         } else {
             return ResponseEntity.notFound().build();
-        }
-    }
+        }
+    }
 
     @GetMapping("/viewProduct/{name}")
     public String viewProduct(@PathVariable("name") String productName, Model model) {

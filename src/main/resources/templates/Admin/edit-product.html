@@ -24,12 +24,13 @@
         </a>
         <div id="form-parent">
             <h1>Edit Product</h1>
-            <form class="form fdc" th:action="@{/admin-panel/updateProduct}" th:object="${productBean}" method="post">
+            <form class="form fdc" th:action="@{/admin-panel/updateProduct}" th:object="${productBean}" method="post"
+                enctype="multipart/form-data">
                 <input type="text" th:field="*{id}" hidden>
                 <input type="text" placeholder="Product Name" th:field="*{name}" required>
                 <input type="text" placeholder="Product Price" th:field="*{price}" required>
                 <textarea placeholder="Product Description" th:field="*{description}" required></textarea>
-                <input type="file" name="image">
+                <input type="file" name="productImg" accept="image/*">
                 <button type="submit">Update Product</button>
             </form>
         </div>

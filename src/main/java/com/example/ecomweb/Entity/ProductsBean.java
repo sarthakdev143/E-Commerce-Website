@@ -24,5 +24,4 @@ public class ProductsBean {
     private String description;
     @Lob
     private byte[] image;
-    private String imageType;
 }

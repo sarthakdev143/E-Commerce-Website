@@ -9,5 +9,5 @@ import com.example.ecomweb.Entity.ProductsBean;
 public interface ProductsRepository extends JpaRepository<ProductsBean, Long> {
 
     ProductsBean findByName(String productName);
-    
+
 }

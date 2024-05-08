@@ -27,6 +27,7 @@
                 <th>Product Name</th>
                 <th>Product Price</th>
                 <th>Product Discription</th>
+                <th>Product Image</th>
                 <th>Action</th>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.description}"></td>
+                    <td><img th:src="@{/images/{name}(name=${product.name})}" alt="Product Image"></td>
                     <td class="action">
                         <a class="delete" th:href="@{/admin-panel/deleteProduct/{id}(id=${product.id})}">Delete</a>
                         <a class="edit" th:href="@{/admin-panel/editProduct/{id}(id=${product.id})}">Edit</a>

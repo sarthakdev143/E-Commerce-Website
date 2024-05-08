@@ -19,7 +19,7 @@
 
     <main class="container flex">
         <div class="imgDiv">
-            <img class="image" th:src="@{/images/{id}(id=${product.id})}" alt="Product Image">
+            <img class="image" th:src="@{/images/{name}(name=${product.name})}" alt="Product Image">
         </div>
         <div class="content">
             <h4 class="content-child" th:text="${product.name}"></h4>

@@ -1,5 +1,6 @@
 package com.example.ecomweb.Controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ecomweb.DTOs.ProductsDto;
@@ -41,7 +43,7 @@ public class AdminProductsController {
     @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable("id") Integer id) {
         userServices.deleteUser(id);
-        return "redirect:/userList";
+        return "redirect:/admin-panel/userList";
     }
 
     // ## ## //
@@ -62,10 +64,9 @@ public class AdminProductsController {
 
     @PostMapping("/saveProduct")
     public String newProduct(@ModelAttribute("newProduct") ProductsBean newProduct,
-            RedirectAttributes redirectAttributes, @RequestParam("image") byte[] file) {
+            RedirectAttributes redirectAttributes, @RequestParam("productImg") MultipartFile file) throws IOException {
 
-        newProduct.setImage(file);
-        newProduct.setImageType(file.toString());
+        newProduct.setImage(file.getBytes());
         productsService.save(newProduct);
 
         // Add a flash attribute for the success message
@@ -83,7 +84,7 @@ public class AdminProductsController {
     @GetMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {
         productsService.deleteById(id);
-        return "redirect:/products";
+        return "redirect:/admin-panel/products";
     }
 
     @GetMapping("/editProduct/{id}")
@@ -94,8 +95,10 @@ public class AdminProductsController {
     }
 
     @PostMapping("/updateProduct")
-    public String editProduct(@ModelAttribute("newProduct") ProductsBean newProduct) {
+    public String editProduct(@ModelAttribute("newProduct") ProductsBean newProduct,
+            @RequestParam("productImg") MultipartFile file) throws IOException {
+        newProduct.setImage(file.getBytes());
         productsService.save(newProduct);
-        return "redirect:/products";
+        return "redirect:/admin-panel/products";
     }
 }

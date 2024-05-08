@@ -22,16 +22,16 @@ public class ProductsService {
         return productsRepository.findAll();
     }
 
-    public ProductsBean findById(Long id) {
-        return productsRepository.findById(id).get();
-    }
-
     public Optional<ProductsBean> OptionalfindById(Long id) {
         return productsRepository.findById(id);
     }
 
     public void deleteById(Long id) {
         productsRepository.deleteById(id);
+    }
+
+    public ProductsBean findById(Long id) {
+        return productsRepository.findById(id).get();
     }
 
     public ProductsBean findByName(String productName) {
