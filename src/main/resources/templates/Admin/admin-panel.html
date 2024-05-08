@@ -16,9 +16,9 @@
         <nav>
             <h1 class="logo">Admin Panel</h1>
             <ul type="none" class="flex">
-                <li class="list active"><a th:href="@{/products}">Inventory</a></li>
+                <li class="list active"><a th:href="@{/admin-panel/products}">Inventory</a></li>
                 <li class="list"><a href="#" id="orders-link">Orders</a></li>
-                <li class="list"><a th:href="@{/userList}" id="customers-link">Customers</a></li>
+                <li class="list"><a th:href="@{/admin-panel/userList}" id="customers-link">Customers</a></li>
                 <li class="list active"><a class="logout" th:href="@{/logout}">Logout</a></li>
             </ul>
         </nav>
@@ -31,7 +31,7 @@
         <!-- Add New Product Form -->
         <section id="form-parent">
             <h3>Add Product</h3>
-            <form class="form fdc" th:action="@{/saveProduct}" th:object="${newProduct}" method="post">
+            <form class="form fdc" th:action="@{admin-panel/saveProduct}" th:object="${newProduct}" method="post">
                 <input type="text" placeholder="Product Name" th:field="*{name}" required>
                 <input type="text" placeholder="Product Price" th:field="*{price}" required>
                 <textarea maxlength="100" style="max-width: 15rem; height: 5rem; max-height: 10rem;" cols="30" rows="10"

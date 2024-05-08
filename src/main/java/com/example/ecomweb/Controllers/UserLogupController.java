@@ -5,26 +5,58 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.ecomweb.Entity.ProductsBean;
 import com.example.ecomweb.Entity.UserBean;
 import com.example.ecomweb.Services.EmailService;
+import com.example.ecomweb.Services.ProductsService;
 import com.example.ecomweb.Services.UserServices;
 
 import jakarta.mail.MessagingException;
 
 @Controller
-public class UserController {
+public class UserLogupController {
     @Autowired
     private UserServices userServices;
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private ProductsService productsService;
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable("id") Long id) {
+        Optional<ProductsBean> fileOptional = productsService.findById(id);
+        if (fileOptional.isPresent()) {
+            ProductsBean file = fileOptional.get();
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFileName()+ "\"")
+                    .body(new ByteArrayResource(file.getImage()));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/viewProduct/{name}")
+    public String viewProduct(@PathVariable("name") String productName, Model model) {
+        ProductsBean productData = productsService.findByName(productName);
+        model.addAttribute("product", productData);
+        return "User/view-product";
+    }
 
     @GetMapping("/login")
     public String login(@ModelAttribute("message") String message, Model model) {

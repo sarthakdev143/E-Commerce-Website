@@ -3,30 +3,61 @@ package com.example.ecomweb.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.ecomweb.DTOs.ProductsDto;
 import com.example.ecomweb.Entity.ProductsBean;
+import com.example.ecomweb.Entity.UserBean;
 import com.example.ecomweb.Services.ProductsService;
+import com.example.ecomweb.Services.UserServices;
+
+// ## THIS CONTROLLER IS ESPECIALLY DESIGNED FOR ADMIN PANEL ## //
 
 @Controller
-public class ProductsController {
+@RequestMapping("/admin-panel")
+public class AdminProductsController {
     @Autowired
     private ProductsService productsService;
 
-    @GetMapping("/products")
-    public String products(Model model) {
-        List<ProductsBean> products = productsService.getAllProducts();
-        model.addAttribute("products", products);
-        return "Admin/products";
+    @Autowired
+    private UserServices userServices;
+
+    // ## 2 EXCLUSIVE METHODs, NOT RELATED TO PRODUCTS ## //
+    @GetMapping("/userList")
+    public String getUsers(Model model) {
+        List<UserBean> users = userServices.getAllUsers();
+        model.addAttribute("users", users);
+        return "Admin/users";
+    }
+
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        userServices.deleteUser(id);
+        return "redirect:/userList";
+    }
+
+    // ## ## //
+
+    @GetMapping
+    public String adminHome(Model model) {
+        ProductsDto newProduct = new ProductsDto();
+        model.addAttribute("newProduct", newProduct);
+
+        // Check for a flash attribute containing a success message
+        String successMessage = (String) model.asMap().get("successMessage");
+        if (successMessage != null) {
+            model.addAttribute("successMessage", successMessage);
+        }
+
+        return "Admin/admin-panel";
     }
 
     @PostMapping("/saveProduct")
@@ -40,6 +71,13 @@ public class ProductsController {
         // Add a flash attribute for the success message
         redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
         return "redirect:/admin-panel";
+    }
+
+    @GetMapping("/products")
+    public String products(Model model) {
+        List<ProductsBean> products = productsService.getAllProducts();
+        model.addAttribute("products", products);
+        return "Admin/products";
     }
 
     @GetMapping("/deleteProduct/{id}")
@@ -59,46 +97,5 @@ public class ProductsController {
     public String editProduct(@ModelAttribute("newProduct") ProductsBean newProduct) {
         productsService.save(newProduct);
         return "redirect:/products";
-    }
-
-    // @GetMapping("/images/{id}")
-    // public ResponseEntity<byte[]> getImage(@PathVariable("id") Long productId) {
-    // Optional<ProductsBean> productOptional =
-    // productsService.OptionalfindById(productId);
-
-    // if (productOptional.isPresent()) {
-    // ProductsBean productsBean = productOptional.get();
-    // byte[] image = productsBean.getImage();
-
-    // // Set headers for image response
-    // HttpHeaders headers = new HttpHeaders();
-    // headers.setContentType(MediaType.IMAGE_JPEG); // Change to appropriate type
-    // if not JPEG
-    // return new ResponseEntity<>(image, headers, HttpStatus.OK);
-    // } else {
-    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    // }
-    // }
-
-    @GetMapping("/images/{id}")
-    public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id) {
-        ProductsBean productsBean = productsService.findById(id);
-        if (productsBean == null || productsBean.getImage() == null) {
-            System.out.println("Product or image not found for ID: " + id);
-            return ResponseEntity.notFound().build();
-        }
-
-        System.out.println();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, productsBean.getImageType())
-                .body(productsBean.getImage());
-    }
-
-    @GetMapping("/viewProduct/{name}")
-    public String viewProduct(@PathVariable("name") String productName, Model model) {
-        ProductsBean productData = productsService.findByName(productName);
-        model.addAttribute("product", productData);
-        return "User/view-product";
     }
 }

@@ -36,8 +36,8 @@
                     <td th:text="${product.price}"></td>
                     <td th:text="${product.description}"></td>
                     <td class="action">
-                        <a class="delete" th:href="@{/deleteProduct/{id}(id=${product.id})}">Delete</a>
-                        <a class="edit" th:href="@{/editProduct/{id}(id=${product.id})}">Edit</a>
+                        <a class="delete" th:href="@{/admin-panel/deleteProduct/{id}(id=${product.id})}">Delete</a>
+                        <a class="edit" th:href="@{/admin-panel/editProduct/{id}(id=${product.id})}">Edit</a>
                     </td>
                 </tr>
             </tbody>
