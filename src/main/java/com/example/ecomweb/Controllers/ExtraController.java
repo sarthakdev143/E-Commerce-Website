@@ -9,16 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.ecomweb.Entity.ProductsBean;
 import com.example.ecomweb.Services.ProductsService;
-import com.example.ecomweb.Services.UserServices;
 
 @Controller
 public class ExtraController {
 
     @Autowired
     private ProductsService productsService;
-
-    @Autowired
-    private UserServices userServices;
 
     @GetMapping("/")
     public String home(Model model) {

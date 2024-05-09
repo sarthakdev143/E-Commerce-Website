@@ -1,10 +1,8 @@
 package com.example.ecomweb.Services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.ecomweb.Entity.UserBean;
