@@ -15,7 +15,8 @@
 
 <body>
     <nav th:fragment="navbar">
-        <h2 class="h2 pointer nav-part"><a th:href="@{/}" style="color: #C2C7B1; text-decoration: none;">Company Logo</a></h2>
+        <h2 class="h2 pointer nav-part"><a th:href="@{/}" style="color: #C2C7B1; text-decoration: none;">Company
+                Logo</a></h2>
         <div class="center flex">
             <input class="search nav-part" type="search" placeholder="Search...">
         </div>
@@ -40,15 +41,17 @@
             <div th:if="${#lists.isEmpty(products)}" style="text-align: center;">
                 <p style="color: #ffffff8f;">No Products Found.</p>
             </div>
-            <div class="product fdc pointer" th:each="product : ${products}">
+            <div loading="lazy" class="product fdc pointer" th:each="product : ${products}">
                 <a target="_blank" th:href="@{/viewProduct/{name}(name=${product.name})}">
                     <div class="imgDiv">
                         <img loading="lazy" class="image" th:src="@{/images/{name}(name=${product.name})}" alt="Product Image">
                     </div>
-                    <div class="content">
-                        <h4 th:text="${product.name}"></h4>
-                        <p th:text="${product.description}"></p>
-                        <h4 th:text="${product.price}"></h4>
+                    <div loading="lazy" class="content">
+                        <h4 class="pro-name" th:text="${product.name}"></h4>
+                        <p class="description">
+                            <span class="text-content" th:text="${product.description}"></span>
+                        </p>
+                        <h4 class="price" th:text="${product.price}"></h4>
                     </div>
                 </a>
             </div>

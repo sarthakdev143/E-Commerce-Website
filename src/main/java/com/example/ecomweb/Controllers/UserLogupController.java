@@ -46,8 +46,7 @@ public class UserLogupController {
         Optional<ProductsBean> fileOptional = Optional.ofNullable(productsRepository.findByName(name));
         if (fileOptional.isPresent()) {
             ProductsBean productsBean = fileOptional.get();
-            HttpHeaders headers = new HttpHeaders();
-            headers.setCacheControl("max-age=31536000");
+
             return ResponseEntity.ok()
                     .contentType(MediaType.APPLICATION_OCTET_STREAM)
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + productsBean.getName() + "\"")

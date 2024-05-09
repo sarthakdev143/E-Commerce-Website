@@ -128,16 +128,37 @@ nav {
                 }
             }
 
-            .content {
-                position: absolute;
-                bottom: 1rem;
-                left: 1rem;
-                padding-right: 1rem;
+            a {
+                text-decoration: none;
+            }
 
-                h4,
-                p {
-                    color: #C2C7B1;
+            .content {
+                width: 100%;
+                height: auto;
+                padding: 1rem 0;
+
+                .pro-name,
+                .description,
+                .price {
                     font-weight: 100;
+                    color: #C2C7B1;
+                }
+                
+                .text-content {
+                    color: grey;
+                    display: block;
+                    height: 4rem;
+                    font-size: 0.9rem;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: normal;
+                    line-height: 1.5;
+                }
+
+                .price {
+                    position: absolute;
+                    bottom: 0;
+                    left: 1rem;
                 }
             }
 
