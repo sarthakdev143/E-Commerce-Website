@@ -28,6 +28,7 @@
                 <th>User Email</th>
                 <th>User Password</th>
                 <th>Login Status</th>
+                <th>Role(s)</th>
                 <th>Action</th>
             </thead>
             <tbody>
@@ -35,11 +36,16 @@
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.email}"></td>
-                    <td th:text="${user.password}"></td>
+                    <td class="password" th:text="${user.password}"></td>
                     <td th:text="${user.Loggedin}"></td>
+                    <td>
+                        <span th:each="role, iterStat : ${user.roles}">
+                            <span th:text="${role.name}"></span><span th:unless="${iterStat.last}">, </span>
+                        </span>
+                    </td>
                     <td class="action">
-                        <a class="delete" th:href="@{/deleteUser/{id}(id=${user.id})}">Delete</a>
-                        <a class="edit" th:href="@{/editUser/{id}(id=${user.id})}">Edit</a>
+                        <a class="delete" th:href="@{/admin-panel/deleteUser/{id}(id=${user.id})}">Delete</a>
+                        <a class="edit" th:href="@{/admin-panel/editUser/{id}(id=${user.id})}">Edit</a>
                     </td>
                 </tr>
             </tbody>

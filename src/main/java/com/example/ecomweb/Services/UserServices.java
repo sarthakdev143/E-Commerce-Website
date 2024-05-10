@@ -14,6 +14,7 @@ public class UserServices {
     private UserRepository repo;
 
     public UserBean saveUser(UserBean user) {
+        user.setId(null);
         return repo.save(user);
     }
 

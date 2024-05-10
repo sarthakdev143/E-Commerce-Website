@@ -30,12 +30,21 @@ table {
         width: 6rem;
         text-align: center;
         padding: 1rem;
+        white-space: nowrap;
+    }
+
+    .password {
+        max-width: 10rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     td {
         padding: 2rem;
         height: 2rem;
         text-align: center;
+        white-space: nowrap;
 
         .edit,
         .delete {

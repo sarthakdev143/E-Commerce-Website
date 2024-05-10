@@ -1,8 +1,10 @@
 package com.example.ecomweb.Controllers;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -10,6 +12,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,9 +21,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.ecomweb.DTOs.UserDto;
 import com.example.ecomweb.Entity.ProductsBean;
+import com.example.ecomweb.Entity.Role;
 import com.example.ecomweb.Entity.UserBean;
 import com.example.ecomweb.Repos.ProductsRepository;
+import com.example.ecomweb.Repos.RoleRepository;
+import com.example.ecomweb.Repos.UserRepository;
+import com.example.ecomweb.Security.TbConstants;
 import com.example.ecomweb.Services.EmailService;
 import com.example.ecomweb.Services.ProductsService;
 import com.example.ecomweb.Services.UserServices;
@@ -40,6 +48,15 @@ public class UserLogupController {
 
     @Autowired
     private ProductsRepository productsRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/images/{name}")
     public ResponseEntity<Resource> getImage(@PathVariable("name") String name) {
@@ -110,17 +127,50 @@ public class UserLogupController {
         }
     }
 
-    @PostMapping("verifyEmail")
+    @PostMapping("/verifyEmail")
     public String verifyEmail(@ModelAttribute("accountObj") UserBean userBean, Model model,
             RedirectAttributes redirectAttributes) {
         if (genratedOtp.equals(userBean.getVerificationCode())) {
-            userBean.setLoggedin(false);
+
+            System.out.println("\n\nUser Credentials :- \nName : " + userBean.getName() + "\nEmail : "
+                    + userBean.getEmail() + "\nPassword : " + userBean.getPassword());
+
+            // Find the user role
+            Optional<Role> userRoleOptional = roleRepository.findById(23l);
+            Set<Role> userRoles = new HashSet<>();
+
+            // Check if the role is present
+            if (userRoleOptional.isPresent()) {
+                userRoles.add(userRoleOptional.get());
+            } else {
+                // Create the user role if not present
+                Role userRole = new Role();
+                userRole.setId(TbConstants.Roles.USER);
+                userRole.setName("ROLE_USER");
+
+                // Save the new role to the repository
+                roleRepository.save(userRole);
+                userRoles.add(userRole);
+            }
+
+            // Add roles to the user and save the user
+            userBean.setRoles(userRoles);
+
+            // Hash the password before saving
+            userBean.setPassword(passwordEncoder.encode(userBean.getPassword()));
+
+            System.out.println("\n\nUser Credentials :- \nName : " + userBean.getName() + "\nEmail : "
+                    + userBean.getEmail() + "\nPassword : " + userBean.getPassword() + "\nRoles : " + userBean.getRoles());
+
+            System.out.println("Saving User");
+            
             userServices.saveUser(userBean);
+
             redirectAttributes.addFlashAttribute("message",
                     "Successfully Created Account, You May Log in To Your Account Now");
             return "redirect:/login";
         } else {
-            model.addAttribute("message", "OTP is incorrect! Pls Check The OTP You Have Entered");
+            model.addAttribute("message", "OTP is incorrect! Please check the OTP you have entered.");
             return "User/verify-email";
         }
     }

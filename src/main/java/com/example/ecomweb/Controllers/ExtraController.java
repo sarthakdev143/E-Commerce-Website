@@ -23,9 +23,8 @@ public class ExtraController {
         return "User/index";
     }
 
-    // Temp.
-    @GetMapping("/logout")
-    public String logout() {
-        return "redirect:/";
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "User/access-denied";
     }
 }
