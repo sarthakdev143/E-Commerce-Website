@@ -27,17 +27,16 @@ public class SecurityConfig {
                         .requestMatchers("/sign-up/**").permitAll()
                         .requestMatchers("/login/**").permitAll()
                         .requestMatchers("/admin-panel/**").permitAll()
-
                         .anyRequest().authenticated())
-                        // .anyRequest().permitAll())
 
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/")
                         .usernameParameter("email")
                         .passwordParameter("password")
+                        .defaultSuccessUrl("/", true)
                         .permitAll())
+
                 .logout(obj -> obj.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true).deleteCookies("JESSIONID"));

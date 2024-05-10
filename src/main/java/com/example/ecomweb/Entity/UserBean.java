@@ -30,6 +30,7 @@ public class UserBean {
     private String name, password;
     private String email;
     private String verificationCode;
+    private Boolean Loggedin = false;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))

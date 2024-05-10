@@ -51,7 +51,6 @@ public class UserLogupController {
 
     @Autowired
     private RoleRepository roleRepository;
-    
 
     @GetMapping("/images/{name}")
     public ResponseEntity<Resource> getImage(@PathVariable("name") String name) {
@@ -130,21 +129,30 @@ public class UserLogupController {
                     + userBean.getEmail() + "\nPassword : " + userBean.getPassword());
 
             // Find the user role
-            Optional<Role> userRoleOptional = roleRepository.findById(23l);
+            Optional<Role> userRoleOptional = roleRepository.findById(TbConstants.Roles.USER);
             Set<Role> userRoles = new HashSet<>();
 
             // Check if the role is present
             if (userRoleOptional.isPresent()) {
+                System.out.println("Entered If Condition");
                 userRoles.add(userRoleOptional.get());
             } else {
+                System.out.println("Entered Else Condition");
                 // Create the user role if not present
                 Role userRole = new Role();
                 userRole.setId(TbConstants.Roles.USER);
                 userRole.setName("ROLE_USER");
 
-                // Save the new role to the repository
+                Role adminRole = new Role();
+                adminRole.setId(TbConstants.Roles.ADMIN);
+                adminRole.setName("ROLE_ADMIN");
+
+                // Save the new role to the Db :)
                 roleRepository.save(userRole);
+                roleRepository.save(adminRole);
+
                 userRoles.add(userRole);
+                userRoles.add(adminRole);
             }
 
             // Add roles to the user and save the user
@@ -154,10 +162,11 @@ public class UserLogupController {
             userBean.setPassword(passwordEncoder.encode(userBean.getPassword()));
 
             System.out.println("\n\nUser Credentials :- \nName : " + userBean.getName() + "\nEmail : "
-                    + userBean.getEmail() + "\nPassword : " + userBean.getPassword() + "\nRoles : " + userBean.getRoles());
+                    + userBean.getEmail() + "\nPassword : " + userBean.getPassword() + "\nRoles : "
+                    + userBean.getRoles());
 
             System.out.println("Saving User");
-            
+
             userServices.saveUser(userBean);
 
             redirectAttributes.addFlashAttribute("message",

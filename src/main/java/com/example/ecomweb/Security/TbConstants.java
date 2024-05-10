@@ -1,5 +1,4 @@
 package com.example.ecomweb.Security;
-
 public class TbConstants {
 
     public static interface Roles {
