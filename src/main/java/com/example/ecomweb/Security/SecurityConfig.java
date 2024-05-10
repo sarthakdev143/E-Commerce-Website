@@ -26,7 +26,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/sign-up/**").permitAll()
                         .requestMatchers("/login/**").permitAll()
-                        .requestMatchers("/admin-panel/**").permitAll()
+                        .requestMatchers("/admin-panel/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
 
                 .formLogin((form) -> form
