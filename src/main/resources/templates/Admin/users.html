@@ -27,7 +27,6 @@
                 <th>User Name</th>
                 <th>User Email</th>
                 <th>User Password</th>
-                <th>Login Status</th>
                 <th>Role(s)</th>
                 <th>Action</th>
             </thead>
@@ -37,7 +36,6 @@
                     <td th:text="${user.name}"></td>
                     <td th:text="${user.email}"></td>
                     <td class="password" th:text="${user.password}"></td>
-                    <td th:text="${user.Loggedin}"></td>
                     <td>
                         <span th:each="role, iterStat : ${user.roles}">
                             <span th:text="${role.name}"></span><span th:unless="${iterStat.last}">, </span>

@@ -1,7 +1,6 @@
 package com.example.ecomweb.Controllers;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
@@ -21,13 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.example.ecomweb.DTOs.UserDto;
 import com.example.ecomweb.Entity.ProductsBean;
 import com.example.ecomweb.Entity.Role;
 import com.example.ecomweb.Entity.UserBean;
 import com.example.ecomweb.Repos.ProductsRepository;
 import com.example.ecomweb.Repos.RoleRepository;
-import com.example.ecomweb.Repos.UserRepository;
 import com.example.ecomweb.Security.TbConstants;
 import com.example.ecomweb.Services.EmailService;
 import com.example.ecomweb.Services.ProductsService;
@@ -54,9 +51,7 @@ public class UserLogupController {
 
     @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+    
 
     @GetMapping("/images/{name}")
     public ResponseEntity<Resource> getImage(@PathVariable("name") String name) {
@@ -102,10 +97,9 @@ public class UserLogupController {
     @PostMapping("/saveAccount")
     public String saveAccount(@ModelAttribute("accountObj") UserBean userBean, Model model,
             RedirectAttributes redirectAttributes) {
-        List<UserBean> existingUserOpt = userServices.findUserByEmail(userBean.getEmail());
+        Optional<UserBean> existingUserOpt = userServices.findUserByEmail(userBean.getEmail());
 
-        System.out.println("List = " + existingUserOpt);
-        if (existingUserOpt == null) {
+        if (existingUserOpt.isPresent()) {
             model.addAttribute("message", "Email is already registered");
             return "User/sign-up";
         } else {

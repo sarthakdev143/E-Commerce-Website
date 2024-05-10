@@ -12,26 +12,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.ecomweb.Entity.UserBean;
-import com.example.ecomweb.Repos.UserRepository;
-
+import com.example.ecomweb.Repos.UserRepository3;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository3 userRepository3;
 
     @Override
     public UserDetails loadUserByUsername(String usernameOrEmail) throws UsernameNotFoundException {
         System.out.println("Entered Load User By Username");
         
         System.out.println("Username / Email : " + usernameOrEmail);
-        List<UserBean> user = userRepository.findByEmail(usernameOrEmail);
+        UserBean user = userRepository3.findByEmail(usernameOrEmail);
         System.out.println("User : " + user);
 
         if (user != null) {
             System.out.println("Going to Next Method");
-            return buildUserDetails((UserBean) user);
+            return buildUserDetails(user);
         } else {
             System.out.println("Email : " + usernameOrEmail);
             System.out.println("Throwing Exception");

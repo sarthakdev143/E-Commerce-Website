@@ -28,8 +28,8 @@ public class SecurityConfig {
                         .requestMatchers("/login/**").permitAll()
                         .requestMatchers("/admin-panel/**").permitAll()
 
-                        // .anyRequest().authenticated())
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
+                        // .anyRequest().permitAll())
 
                 .formLogin((form) -> form
                         .loginPage("/login")
