@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.ecomweb.Entity.UserBean;
 import com.example.ecomweb.Repos.UserRepository;
 import com.example.ecomweb.Repos.UserRepository2;
+import com.example.ecomweb.Repos.UserRepository3;
 
 @Service
 public class UserServices {
@@ -18,15 +19,21 @@ public class UserServices {
     @Autowired
     private UserRepository2 repo2;
 
+    @Autowired
+    private UserRepository3 repo3;
+
     public UserBean saveUser(UserBean user) {
         user.setId(null);
         return repo.save(user);
     }
 
-    // Find User By Email
     public Optional<UserBean> findUserByEmail(String email) {
         Optional<UserBean> users = repo2.findByEmail(email);
         return users;
+    }
+
+    public UserBean findByEmail(String email) {
+        return repo3.findByEmail(email);
     }
 
     public List<UserBean> getAllUsers() {
@@ -36,5 +43,9 @@ public class UserServices {
 
     public void deleteUser(Integer id) {
         repo.deleteById(id);
+    }
+
+    public UserBean findByName(String username) {
+        return repo.findByName(username);
     }
 }

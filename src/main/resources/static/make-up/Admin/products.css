@@ -33,7 +33,8 @@ table {
         white-space: nowrap;
     }
 
-    .password {
+    .password,
+    .description {
         max-width: 10rem !important;
         white-space: nowrap;
         overflow: hidden;

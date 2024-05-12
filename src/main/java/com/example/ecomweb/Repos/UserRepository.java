@@ -11,4 +11,6 @@ import com.example.ecomweb.Entity.UserBean;
 public interface UserRepository extends CrudRepository<UserBean, Integer> {
 
     List<UserBean> findByEmail(String email);
+
+    UserBean findByName(String username);
 }

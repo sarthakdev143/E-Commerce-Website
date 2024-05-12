@@ -35,7 +35,7 @@
                     <td th:text="${product.id}"></td>
                     <td th:text="${product.name}"></td>
                     <td th:text="${product.price}"></td>
-                    <td th:text="${product.description}"></td>
+                    <td class="description" th:text="${product.description}" th:title="${product.description}"></td>
                     <td><img th:src="@{/images/{name}(name=${product.name})}" alt="Product Image"></td>
                     <td class="action">
                         <a class="delete" th:href="@{/admin-panel/deleteProduct/{id}(id=${product.id})}">Delete</a>
