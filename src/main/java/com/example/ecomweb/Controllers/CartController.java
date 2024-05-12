@@ -43,20 +43,25 @@ public class CartController {
 
     @PostMapping("/add")
     public String addToCart(@RequestParam("productName") String productName) {
+        System.out.println("Entered The Product Adding Method");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         UserBean userBean = userServices.findByEmail(email);
-
+        
+        System.out.println("Name Of User, Who Requested The Product : " + userBean.getName());
         ProductsBean productsBean = productsService.findByName(productName);
 
+        System.out.println("Finding Product : " + productName);
+
         if (productsBean != null) {
+            System.out.println("Entered If Statement \nProduct Found");
             CartBean cart = cartRepository.findByUser(userBean);
-
-            // Assuming you have a method to add a product to the cart in CartService
+            
             cartService.addProductToCart(cart, productsBean);
-
+            
             return "redirect:/cart"; 
         } else {
+            System.out.println("Entered Else Statement \nProduct Not Found");
             return "redirect:/error";
         }
     }

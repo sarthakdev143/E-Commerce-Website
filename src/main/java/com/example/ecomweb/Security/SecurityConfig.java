@@ -26,6 +26,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/sign-up/**").permitAll()
                         .requestMatchers("/login/**").permitAll()
+                        .requestMatchers("/cart/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                         .requestMatchers("/admin-panel/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
 
