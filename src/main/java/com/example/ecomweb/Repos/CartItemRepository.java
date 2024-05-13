@@ -6,9 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.ecomweb.Entity.CartBean;
 import com.example.ecomweb.Entity.CartItemBean;
+import com.example.ecomweb.Entity.ProductsBean;
 
 public interface CartItemRepository extends JpaRepository<CartItemBean, Long> {
 
     List<CartItemBean> findByCart(CartBean cartBean);
+
+    CartItemBean findByCartAndProduct(CartBean cart, ProductsBean productsBean);
     
 }

@@ -1,5 +1,7 @@
 package com.example.ecomweb.Services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,21 +21,44 @@ public class CartService {
     private CartItemRepository cartItemRepository;
 
     public void addProductToCart(CartBean cart, ProductsBean productsBean) {
-        CartItemBean cartItem = new CartItemBean();
-        cartItem.setProduct(productsBean);
-        cartItem.setQuantity(1);
-        cartItem.setCart(cart);
+        // Check if the product already exists in the cart
+        CartItemBean existingCartItem = cartItemRepository.findByCartAndProduct(cart, productsBean);
 
-        cart.getCartItems().add(cartItem);
+        if (existingCartItem != null) {
+            // If the product exists, update the quantity
+            existingCartItem.setQuantity(existingCartItem.getQuantity() + 1);
+            cartItemRepository.save(existingCartItem);
+        } else {
+            // If the product does not exist, create a new CartItemBean
+            CartItemBean cartItem = new CartItemBean();
+            cartItem.setProduct(productsBean);
+            cartItem.setQuantity(1);
+            cartItem.setCart(cart);
 
-        if (cart.getTotalPrice() == null) {
-            cart.setTotalPrice(0L);
+            // Calculate price and set it to cartItem
+            String productPrice = productsBean.getPrice();
+            cartItem.setPrice(productPrice);
+
+            cart.getCartItems().add(cartItem);
+            cartItemRepository.save(cartItem);
         }
 
+        // Update total price of the cart
         int totalPrice = Integer.parseInt(productsBean.getPrice().replaceAll("[^\\d]", ""));
         cart.setTotalPrice(cart.getTotalPrice() + totalPrice);
 
-        cartItemRepository.save(cartItem);
+        // Update Total Price Of Cart
+        updateTotalPrice(cart);
+    }
+
+    private void updateTotalPrice(CartBean cart) {
+        Long totalPrice = 0L;
+        List<CartItemBean> cartItems = cart.getCartItems();
+        for (CartItemBean cartItem : cartItems) {
+            int productPrice = Integer.parseInt(cartItem.getProduct().getPrice().replaceAll("[^\\d]", ""));
+            totalPrice += productPrice * cartItem.getQuantity();
+        }
+        cart.setTotalPrice(totalPrice);
         cartRepository.save(cart);
     }
 }

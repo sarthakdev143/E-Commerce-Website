@@ -41,7 +41,7 @@
                         </form>
                     </td>
                     <td th:text="${cartItem.product.price}"></td>
-                    <td th:text="${cartItem.price}"></td>
+                    <td th:text="${@conversionService.convertStringToInt(cartItem.product.price) * cartItem.quantity}"></td>
                     <td>
                         <form th:action="@{/cart/remove}" method="post">
                             <input type="hidden" th:value="${cartItem.id}" name="cartItemId" />
