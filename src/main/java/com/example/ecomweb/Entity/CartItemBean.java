@@ -32,5 +32,5 @@ public class CartItemBean {
     private ProductsBean product;
 
     private int quantity;
-    private Long price;
+    private String price;
 }

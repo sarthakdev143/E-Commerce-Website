@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -30,7 +32,7 @@ public class CartBean {
     private UserBean user;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CartItemBean> cartItems;
+    private List<CartItemBean> cartItems = new ArrayList<>(); 
 
     private Long totalPrice;
 }

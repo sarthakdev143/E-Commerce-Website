@@ -25,10 +25,6 @@
             <h4 class="content-child" th:text="${product.name}"></h4>
             <p class="content-child" th:text="${product.description}"></p>
             <h4 class="content-child" th:text="${product.price}"></h4>
-            <!-- <form th:action="@{/cart/add}" method="post">
-                <input type="hidden" name="productName" th:value="${product.name}" />
-                <button type="submit">Add To Cart</button>
-            </form> -->
             <a class="content-child" th:href="@{/cart/add/{name}(name=${product.name})}">
                 <button>Add To Cart</button>
             </a>

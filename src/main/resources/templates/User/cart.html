@@ -31,7 +31,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="cartItem : ${cartItems}">
+                <tr th:each="cartItem : ${cartItemList}">
                     <td th:text="${cartItem.product.name}"></td>
                     <td>
                         <form th:action="@{/cart/updateQuantity}" method="post">
@@ -41,17 +41,17 @@
                         </form>
                     </td>
                     <td th:text="${cartItem.product.price}"></td>
-                    <td th:text="${cartItem.totalPrice}"></td>
+                    <td th:text="${cartItem.price}"></td>
                     <td>
                         <form th:action="@{/cart/remove}" method="post">
                             <input type="hidden" th:value="${cartItem.id}" name="cartItemId" />
                             <button type="submit">Remove</button>
                         </form>
-                    </td>       
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <div th:if="${#lists.isEmpty(cartItems)}" style="text-align: center;">
+        <div th:if="${#lists.isEmpty(cartItemList)}" style="text-align: center;">
             <p style="color: #ffffff8f;">Your Cart is Empty.</p>
         </div>
 
