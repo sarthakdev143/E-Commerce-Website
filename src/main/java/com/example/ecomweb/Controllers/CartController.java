@@ -62,16 +62,25 @@ public class CartController {
             if (cartItems.isEmpty()) {
                 System.out.println("Cart Is Empty");
             } else {
-                System.out.println("Found Items In Cart");
+                System.out.println("\nFound Items In Cart");
                 for (CartItemBean cartItem : cartItems) {
                     ProductsBean product = cartItem.getProduct();
                     System.out.println("Product Name: " + product.getName());
                     System.out.println("Price: " + product.getPrice());
+                    System.out.println("Quantity : " + cartItem.getQuantity());
                     cartItem.setPrice(product.getPrice());
                 }
             }
         }
+
+        int TotalCartPrice = 0;
         List<CartItemBean> cartItemBeans = cartItemRepository.findByCart(cartBean);
+        for (CartItemBean cartItem : cartItemBeans) {
+            int price = Integer.parseInt(cartItem.getProduct().getPrice().replaceAll("[^\\d]", ""))
+                    * cartItem.getQuantity();
+            TotalCartPrice += price;
+        }
+        model.addAttribute("TotalCartPrice", TotalCartPrice);
         model.addAttribute("cartItemList", cartItemBeans);
         return "User/cart";
     }
@@ -105,6 +114,20 @@ public class CartController {
             System.out.println("Entered Else Statement \nProduct Not Found");
             return "redirect:/error";
         }
+    }
+
+    @PostMapping("/updateQuantity")
+    public String updateQuantity(@RequestParam("cartItemName") String cartItemName,
+            @RequestParam("quantity") int quantity) {
+        System.out.println("\n" + "Raised a Request To Update Quantity of " + cartItemName);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserBean userBean = userServices.findByEmail(email);
+        CartBean cartBean = cartRepository.findByUser(userBean);
+        ProductsBean productsBean = productsService.findByName(cartItemName);
+        CartItemBean cartItem = cartItemRepository.findByCartAndProduct(cartBean, productsBean);
+        cartService.updateCartItemQuantity(cartItem, quantity);
+        return "redirect:/cart";
     }
 
 }

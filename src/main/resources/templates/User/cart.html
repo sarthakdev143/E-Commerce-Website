@@ -34,14 +34,16 @@
                 <tr th:each="cartItem : ${cartItemList}">
                     <td th:text="${cartItem.product.name}"></td>
                     <td>
-                        <form th:action="@{/cart/updateQuantity}" method="post">
+                        <form class="quantity-wrapper" th:action="@{/cart/updateQuantity}" method="post">
+                            <input type="hidden" th:value="${cartItem.product.name}" name="cartItemName" />
                             <input type="number" th:value="${cartItem.quantity}" name="quantity" min="1" />
-                            <input type="hidden" th:value="${cartItem.id}" name="cartItemId" />
                             <button type="submit">Update</button>
                         </form>
                     </td>
                     <td th:text="${cartItem.product.price}"></td>
-                    <td th:text="${@conversionService.convertStringToInt(cartItem.product.price) * cartItem.quantity}"></td>
+                    <td>₹<span
+                            th:text="${@conversionService.convertStringToInt(cartItem.product.price) * cartItem.quantity}"></span>
+                    </td>
                     <td>
                         <form th:action="@{/cart/remove}" method="post">
                             <input type="hidden" th:value="${cartItem.id}" name="cartItemId" />
@@ -55,7 +57,7 @@
             <p style="color: #ffffff8f;">Your Cart is Empty.</p>
         </div>
 
-        <h2 th:text="'Total Price: ' + ${totalPrice}"></h2>
+        <h2>Total Price : ₹<span th:text="${TotalCartPrice}"></span></h2>
 
         <a href="@{/checkout}" class="btn btn-success">Proceed to Checkout</a>
     </main>

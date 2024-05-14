@@ -1,4 +1,4 @@
-package com.example.ecomweb.Services;
+    package com.example.ecomweb.Services;
 
 import java.util.List;
 
@@ -46,6 +46,7 @@ public class CartService {
         // Update total price of the cart
         int totalPrice = Integer.parseInt(productsBean.getPrice().replaceAll("[^\\d]", ""));
         cart.setTotalPrice(cart.getTotalPrice() + totalPrice);
+        System.out.println("Total Price Of Cart : " + cart.getTotalPrice() + totalPrice);
 
         // Update Total Price Of Cart
         updateTotalPrice(cart);
@@ -60,5 +61,14 @@ public class CartService {
         }
         cart.setTotalPrice(totalPrice);
         cartRepository.save(cart);
+    }
+
+    public void updateCartItemQuantity(CartItemBean cartItemBean, int quantity) {
+        System.out.println("Changing The Quantity Of " + cartItemBean.getProduct().getName() + " to " + quantity + " in the Cart");
+        // Update the quantity of the cart item
+        cartItemBean.setQuantity(quantity);
+        
+        // Save the updated cart item back to the repository
+        cartItemRepository.save(cartItemBean);
     }
 }
