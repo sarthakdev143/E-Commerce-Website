@@ -18,6 +18,7 @@ public class ExtraController {
 
     @GetMapping("/")
     public String home(Model model) {
+        System.out.println("\n\nEntered Home Page..");  
         List<ProductsBean> products = productsService.getAllProducts();
         model.addAttribute("products", products);
         return "User/index";

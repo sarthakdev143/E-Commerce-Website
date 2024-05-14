@@ -20,21 +20,26 @@ public class EmailService {
     private TemplateEngine templateEngine;
 
     public void sendOtpEmail(String to, String otp) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        helper.setTo(to);
-        helper.setSubject("Your OTP Code");
-
-        // Create Thymeleaf context and process the OTP email template
-        Context context = new Context();
-        context.setVariable("otp", otp);
-        String body = templateEngine.process("User/email-template", context);
-
-        // Set email body as HTML
-        helper.setText(body, true);
-
-        // Send the email
-        mailSender.send(message);
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+    
+            helper.setTo(to);
+            helper.setSubject("Your OTP Code");
+    
+            // Create Thymeleaf context and process the OTP email template
+            Context context = new Context();
+            context.setVariable("otp", otp);
+            String body = templateEngine.process("User/email-template", context);
+    
+            // Set email body as HTML
+            helper.setText(body, true);
+    
+            // Send the email
+            mailSender.send(message);
+        }
+        catch (Exception e) {
+            System.out.println("Printing Exception : " + e);
+        }
     }
 }

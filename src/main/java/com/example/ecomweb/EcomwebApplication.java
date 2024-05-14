@@ -8,7 +8,8 @@ public class EcomwebApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EcomwebApplication.class, args);
-		System.out.println("\n\n<><><> Hello From Sarthak <><><>\n\n");
+		System.out.println("\n\n<><><> Hello From Sarthak <><><>\nServer Port : 1212 \n\n");
 	}
 
 }
+	
