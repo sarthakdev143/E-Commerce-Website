@@ -5,14 +5,19 @@ nav {
     align-items: center;
     padding: 0.5rem 2rem;
     z-index: 9000;
+    height: fit-content;
+    align-items: center;
 
     .center {
         gap: 1rem;
         width: fit-content;
+        display: flex;
+        align-items: center;
 
         .search {
             width: 25rem;
             margin-left: 3rem;
+            margin-top: 1rem;
         }
 
         a {
@@ -20,7 +25,6 @@ nav {
             text-decoration: none;
             color: #C2C7B1;
             font-weight: 100;
-            background: red;
             height: 100%;
         }
 

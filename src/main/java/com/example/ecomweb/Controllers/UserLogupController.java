@@ -125,6 +125,13 @@ public class UserLogupController {
             RedirectAttributes redirectAttributes) {
         if (genratedOtp.equals(userBean.getVerificationCode())) {
 
+            UserBean existingUser = userServices.findByEmail(userBean.getEmail());
+            if (existingUser != null) {
+                System.out.println("User Already Registered!");
+                model.addAttribute("message", "Email is already registered");
+                return "User/sign-up";
+            }
+
             System.out.println("\n\nUser Credentials :- \nName : " + userBean.getName() + "\nEmail : "
                     + userBean.getEmail() + "\nPassword : " + userBean.getPassword());
 

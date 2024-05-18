@@ -62,12 +62,13 @@ gsap.to(".verify-form", {
 });
 
 // User Already Registered Text Change
-let message = document.querySelector(".already-registered")
+let message = document.querySelector(".already-registered");
+let messageText = message.innerHTML;
 
 message.addEventListener("mouseenter", () => {
-    message.innerHTML = "Click To Refresh The Page"
+    message.innerHTML = "Click To Refresh The Page";
 });
 
 message.addEventListener("mouseout", () => {
-    message.innerHTML = "Email is Already Registered"
+    message.innerHTML = messageText;
 });
