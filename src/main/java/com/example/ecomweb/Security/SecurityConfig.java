@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true).deleteCookies("JESSIONID"));
         http.exceptionHandling((hi) -> hi.accessDeniedPage("/access-denied"));
-        System.out.println("Hello from Security Config");
+        System.out.println("\n\nHello from Security Config\n\n");
         return http.build();
     }
 

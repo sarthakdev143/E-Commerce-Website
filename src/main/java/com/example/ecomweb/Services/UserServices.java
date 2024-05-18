@@ -23,7 +23,6 @@ public class UserServices {
     private UserRepository3 repo3;
 
     public UserBean saveUser(UserBean user) {
-        user.setId(null);
         return repo.save(user);
     }
 

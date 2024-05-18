@@ -104,6 +104,8 @@ public class CartController {
                 System.out.println("Cart Not Found");
                 cart = CreateNewCart(userBean);
                 cartRepository.save(cart);
+            } else {
+                System.out.println("\nCart Found of User : " + cart.getUser().getName());
             }
 
             cartService.addProductToCart(cart, productsBean);
@@ -130,4 +132,9 @@ public class CartController {
         return "redirect:/cart";
     }
 
+    @PostMapping("/remove")
+    public String RemoveCartItem(@RequestParam("cartItemId") Long id) {
+        cartItemRepository.deleteById(id);
+        return "redirect:/cart";
+    }
 }

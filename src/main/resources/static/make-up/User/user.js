@@ -16,12 +16,6 @@ tl1.from(".product", {
     ease: "back.out(2)",
 });
 
-tl1.from(".image", {
-    opacity: 0,
-    duration: 0.3,
-    y: -20,
-});
-
 let tl2 = gsap.timeline();
 
 tl2.from(".content-child", {

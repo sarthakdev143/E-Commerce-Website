@@ -34,5 +34,5 @@ public class CartBean {
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItemBean> cartItems = new ArrayList<>(); 
 
-    private Long totalPrice;
+    private Long totalPrice = 0l;
 }

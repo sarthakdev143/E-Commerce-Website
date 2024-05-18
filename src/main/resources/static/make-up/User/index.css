@@ -10,23 +10,25 @@ nav {
         gap: 1rem;
         width: fit-content;
 
-        .signup {
-            &:hover {
-                filter: brightness(0.8);
-
-                .icon {
-                    transform: translateY(0.15rem);
-                }
-            }
-
-            &:active {
-                filter: brightness(0.6);
-            }
-        }
-
         .search {
             width: 25rem;
             margin-left: 3rem;
+        }
+
+        a {
+            align-items: center;
+            text-decoration: none;
+            color: #C2C7B1;
+            font-weight: 100;
+            background: red;
+            height: 100%;
+        }
+
+        .cart {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 1.25rem;
         }
     }
 
@@ -39,18 +41,6 @@ nav {
         gap: 0.5rem;
         align-items: center;
         font-size: 1.25rem;
-
-        a {
-            text-decoration: none;
-            color: #C2C7B1;
-        }
-
-        .cart {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            font-size: 1.25rem;
-        }
 
         .logup {
             display: flex;
@@ -78,8 +68,13 @@ nav {
                 border-radius: 0.5rem;
             }
 
+            .logout {
+                background: rgb(255, 40, 40);
+            }
+
             .login:hover,
-            .sign:hover {
+            .sign:hover,
+            .logout {
                 filter: brightness(0.85);
             }
         }
@@ -143,7 +138,7 @@ nav {
                     font-weight: 100;
                     color: #C2C7B1;
                 }
-                
+
                 .text-content {
                     color: grey;
                     display: block;

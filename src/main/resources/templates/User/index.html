@@ -17,10 +17,8 @@
     <nav th:fragment="navbar">
         <h2 class="h2 pointer nav-part"><a th:href="@{/}" style="color: #C2C7B1; text-decoration: none;">Company
                 Logo</a></h2>
-        <div class="center flex">
+        <div class="center">
             <input class="search nav-part" type="search" placeholder="Search...">
-        </div>
-        <h2 class="h2 mycart nav-part">
             <a th:href="@{/cart}">
                 <div class="cart pointer">
                     <span>My Cart</span>
@@ -29,9 +27,12 @@
                     </span>
                 </div>
             </a>
+        </div>
+        <h2 class="h2 mycart nav-part">
             <div class="logup">
                 <a th:href="@{/login}" class="login">Login</a>
                 <a th:href="@{/sign-up}" class="sign">Sign Up</a>
+                <a th:href="@{/logout}" class="sign logout">Logout</a>
             </div>
         </h2>
     </nav>

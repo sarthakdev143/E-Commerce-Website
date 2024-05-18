@@ -165,9 +165,8 @@ public class UserLogupController {
                     + userBean.getEmail() + "\nPassword : " + userBean.getPassword() + "\nRoles : "
                     + userBean.getRoles());
 
-            System.out.println("Saving User");
-
             userServices.saveUser(userBean);
+            System.out.println("User Saved");
 
             redirectAttributes.addFlashAttribute("message",
                     "Successfully Created Account, You May Log in To Your Account Now");

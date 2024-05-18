@@ -1,4 +1,4 @@
-    package com.example.ecomweb.Services;
+package com.example.ecomweb.Services;
 
 import java.util.List;
 
@@ -21,38 +21,43 @@ public class CartService {
     private CartItemRepository cartItemRepository;
 
     public void addProductToCart(CartBean cart, ProductsBean productsBean) {
-        // Check if the product already exists in the cart
-        CartItemBean existingCartItem = cartItemRepository.findByCartAndProduct(cart, productsBean);
+        System.out.println("Entered 'Add Product to Cart' Method Of Service");
+        CartItemBean existingCartItem = cartItemRepository.findByCartAndProduct(cart,
+                productsBean);
+        System.out.println(
+                "Executing Process For Adding '" + productsBean.getName() + "' to Cart of '"
+                        + cart.getUser().getName()
+                        + "'");
 
         if (existingCartItem != null) {
-            // If the product exists, update the quantity
+            System.out.println("Entered If Statement");
             existingCartItem.setQuantity(existingCartItem.getQuantity() + 1);
             cartItemRepository.save(existingCartItem);
         } else {
-            // If the product does not exist, create a new CartItemBean
+            System.out.println("Entered Else Statement");
             CartItemBean cartItem = new CartItemBean();
             cartItem.setProduct(productsBean);
             cartItem.setQuantity(1);
             cartItem.setCart(cart);
-
-            // Calculate price and set it to cartItem
-            String productPrice = productsBean.getPrice();
-            cartItem.setPrice(productPrice);
-
+            cartItem.setPrice(productsBean.getPrice());
             cart.getCartItems().add(cartItem);
+            System.out.println("New cart item added to cart");
             cartItemRepository.save(cartItem);
+            cartRepository.save(cart);
         }
 
-        // Update total price of the cart
+        System.out.println("Updating Price of Cart..");
         int totalPrice = Integer.parseInt(productsBean.getPrice().replaceAll("[^\\d]", ""));
         cart.setTotalPrice(cart.getTotalPrice() + totalPrice);
-        System.out.println("Total Price Of Cart : " + cart.getTotalPrice() + totalPrice);
+        System.out.println("Total Price Of Cart : ");
 
-        // Update Total Price Of Cart
         updateTotalPrice(cart);
+        System.out.println("Total Cart price updated : " + cart.getTotalPrice() +
+                totalPrice);
     }
 
     private void updateTotalPrice(CartBean cart) {
+        System.out.println("Entered Update Total Price Method..");
         Long totalPrice = 0L;
         List<CartItemBean> cartItems = cart.getCartItems();
         for (CartItemBean cartItem : cartItems) {
@@ -60,15 +65,15 @@ public class CartService {
             totalPrice += productPrice * cartItem.getQuantity();
         }
         cart.setTotalPrice(totalPrice);
+        System.out.println("Saving Cart Of : " + cart.getUser().getName() + " with total price of " + totalPrice);
         cartRepository.save(cart);
     }
 
     public void updateCartItemQuantity(CartItemBean cartItemBean, int quantity) {
-        System.out.println("Changing The Quantity Of " + cartItemBean.getProduct().getName() + " to " + quantity + " in the Cart");
-        // Update the quantity of the cart item
+        System.out.println(
+                "Changing The Quantity Of " + cartItemBean.getProduct().getName() + " to " +
+                        quantity + " in the Cart");
         cartItemBean.setQuantity(quantity);
-        
-        // Save the updated cart item back to the repository
         cartItemRepository.save(cartItemBean);
     }
 }
