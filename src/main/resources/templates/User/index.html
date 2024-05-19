@@ -17,8 +17,8 @@
     <nav th:fragment="navbar">
         <h2 class="h2 pointer nav-part"><a th:href="@{/}" style="color: #C2C7B1; text-decoration: none;">Company
                 Logo</a></h2>
-        <div class="center flex">
-            <input class="search nav-part" type="search" placeholder="Search...">
+        <div class="center flex nav-part">
+            <input class="search" type="search" placeholder="Search...">
             <a th:href="@{/cart}">
                 <div class="cart pointer">
                     <span>My Cart</span>
@@ -32,7 +32,9 @@
             <div class="logup">
                 <a th:href="@{/login}" class="login">Login</a>
                 <a th:href="@{/sign-up}" class="sign">Sign Up</a>
-                <a th:href="@{/logout}" class="sign logout">Logout</a>
+            </div>
+            <div class="logout-div">
+                <a th:href="@{/logout}" class="logout">Logout</a>
             </div>
         </h2>
     </nav>
@@ -62,7 +64,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
         integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- <script src="/make-up/User/user.js"></script> -->
+    <script src="/make-up/User/user.js"></script>
 </body>
 
 </html>

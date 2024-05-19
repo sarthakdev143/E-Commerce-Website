@@ -31,12 +31,14 @@
         <!-- Add New Product Form -->
         <section id="form-parent">
             <h3>Add Product</h3>
-            <form class="form fdc" th:action="@{admin-panel/saveProduct}" th:object="${newProduct}" method="post" enctype="multipart/form-data">
+            <form class="form fdc" th:action="@{admin-panel/saveProduct}" th:object="${newProduct}" method="post"
+                enctype="multipart/form-data">
                 <input type="text" placeholder="Product Name" th:field="*{name}" required>
                 <input type="text" placeholder="Product Price" th:field="*{price}" required>
                 <textarea maxlength="255" style="max-width: auto; height: 5rem; max-height: 10rem;" cols="30" rows="10"
                     placeholder="Product Description" th:field="*{description}" required></textarea>
-                <input type="file" name="productImg" accept="image/*">
+                <input type="file" id="product-img-input" name="productImg" accept="image/*" required>
+                <img id="product-img-preview" class="product-img-preview" src="#" alt="" />
                 <button type="submit">Add Product</button>
             </form>
         </section>

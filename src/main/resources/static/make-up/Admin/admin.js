@@ -46,3 +46,23 @@ tl3.from(".back", {
     y: -20,
     ease: "power1.inOut",
 })
+
+// Display Product Image preview
+function previewThumbnail(input) {
+    var preview = document.getElementById('product-img-preview');
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block'; // Show the preview
+        }
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.style.display = 'none'; // Hide the preview if no file is chosen
+    }
+}
+
+// Attach event listener to Product Image input
+document.getElementById('product-img-input').addEventListener('change', function () {
+    previewThumbnail(this);
+});

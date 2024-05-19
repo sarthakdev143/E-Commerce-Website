@@ -1,5 +1,6 @@
 package com.example.ecomweb.Security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,6 +15,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private CustomLogoutHandler customLogoutHandler;
+
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -26,7 +30,7 @@ public class SecurityConfig {
 
                         .requestMatchers("/sign-up/**").permitAll()
                         .requestMatchers("/login/**").permitAll()
-                        .requestMatchers("/cart/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+                        .requestMatchers("/cart/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
                         .requestMatchers("/admin-panel/**").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
 
@@ -39,6 +43,7 @@ public class SecurityConfig {
                         .permitAll())
 
                 .logout(obj -> obj.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .addLogoutHandler(customLogoutHandler)
                         .logoutSuccessUrl("/")
                         .invalidateHttpSession(true).deleteCookies("JESSIONID"));
         http.exceptionHandling((hi) -> hi.accessDeniedPage("/access-denied"));

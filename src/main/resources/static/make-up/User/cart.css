@@ -1,0 +1,93 @@
+.container {
+    width: 100%;
+    gap: 1.5rem;
+
+    section.left {
+        width: 80%;
+        padding: 0 2rem;
+        border-right: 0.1rem solid #202632;
+
+        .cart-item-wrapper {
+            gap: 1.5rem;
+            padding-right: 2rem;
+            /* background: green; */
+
+            .cart-item {
+                background: #000;
+                padding: 1.5rem;
+                border-radius: 1rem;
+                font-weight: 200;
+                gap: 1.5rem;
+
+                figure {
+                    width: 13rem;
+                    height: 13rem;
+                    overflow: hidden;
+
+                    img {
+                        width: inherit;
+                        height: inherit;
+                        object-fit: cover;
+                        transition: all 0.2s ease;
+                        scale: 1.1;
+                    }
+
+                    &:hover img {
+                        scale: 1;
+                    }
+                }
+
+                position: relative;
+
+                .right .part-2 {
+                    position: absolute;
+                    top: 1.5rem;
+                    right: 1.5rem;
+
+                    .price {
+                        gap: 1rem;
+                    }
+
+                    h3 {
+                        width: 100%;
+                        gap: 1rem;
+                    }
+
+                    .subTotal {
+                        justify-content: center;
+                        align-items: center;
+
+                        &::before {
+                            scale: 0.7;
+                            content: "i";
+                            margin-left: -1.8rem;
+                            margin-right: -0.5rem;
+                            border: 0.1rem solid;
+                            width: 1rem;
+                            height: 1rem;
+                            padding: 0.6rem;
+                            font-size: initial;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            font-weight: 500;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    section.right {
+        position: sticky;
+        top: 0;
+        width: 20%;
+    }
+
+    .checkout {
+        text-decoration: none;
+        color: #eee;
+    }
+}

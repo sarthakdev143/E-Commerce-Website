@@ -72,3 +72,12 @@ message.addEventListener("mouseenter", () => {
 message.addEventListener("mouseout", () => {
     message.innerHTML = messageText;
 });
+
+// Changing the quantity of cart item in cart..
+function changeQuantity(amount, name) {
+    const input = document.getElementById('quantity-' + name);
+    const currentValue = parseInt(input.value);
+    if (currentValue + amount >= 1 && currentValue + amount <= 10) {
+        input.value = currentValue + amount;
+    }
+}

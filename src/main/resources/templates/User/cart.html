@@ -18,19 +18,84 @@
 <body>
     <div th:replace="~{User/index::navbar}"></div>
 
-    <main class="container">
-        <h1>Your Shopping Cart</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total Price</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
+    <main class="container flex">
+        <section class="left">
+            <h1>Your Shopping Cart</h1>
+            <hr>
+            <div class="cart-item-wrapper fdc">
+                <article class="cart-item flex" th:each="cartItem : ${cartItemList}">
+                    <div class="left">
+                        <figure>
+                            <img th:src="@{/images/{name}(name=${cartItem.product.name})}" alt="Product Image">
+                        </figure>
+                    </div>
+                    <div class="right flex">
+                        <div class="part-1">
+                            <figcaption>
+                                <h2 th:text="${cartItem.product.name}"></h2>
+                            </figcaption>
+                            <form class="quantity-wrapper" th:action="@{/cart/updateQuantity}" method="post">
+                                <input type="hidden" th:value="${cartItem.product.name}" name="cartItemName" />
+                                <label for="quantity-${cartItem.product.name}">Quantity :-</label>
+                                <!-- <div class="quantity-input flex">
+                                    <button type="button" class="quantity-button"
+                                        onclick="changeQuantity(-1, '${cartItem.product.name}')">-</button>
+                                    <input type="number" id="quantity-${cartItem.product.name}"
+                                        th:value="${cartItem.quantity}" name="quantity" min="1" readonly />
+                                    <button type="button" class="quantity-button"
+                                        onclick="changeQuantity(1, '${cartItem.product.name}')">+</button>
+                                </div> -->
+                                <input type="number" id="quantity-${cartItem.product.name}"
+                                    th:value="${cartItem.quantity}" name="quantity" min="1" max="10" />
+                                <button type="submit">Update</button>
+                            </form>
+                        </div>
+                        <div class="part-2">
+                            <h3 class="price flex">
+                                <span>Price : </span>
+                                <span th:text="${cartItem.product.price}"></span>
+                            </h3>
+                            <h3 title="It is The Total Price Of Product With Multiplication With its Quantity" class="subTotal flex">
+                                <span>SubTotal
+                                    : </span>
+                                <span>₹<span
+                                        th:text="${@conversionService.convertStringToInt(cartItem.product.price) * cartItem.quantity}"></span></span>
+                            </h3>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div th:if="${#lists.isEmpty(cartItemList)}" style="text-align: center;">
+                <p style="color: #ffffff8f;">Your Cart is Empty.</p>
+            </div>
+
+            <section class="total-price">
+                <h2>Total Price : ₹<span th:text="${TotalCartPrice}"></span></h2>
+
+                <a href="@{/checkout}" class="checkout btn btn-success">
+                    <button>Proceed to Buy</button>
+                </a>
+            </section>
+        </section>
+
+        <section class="right">
+            <h2>Total Price : ₹<span th:text="${TotalCartPrice}"></span></h2>
+
+            <a href="@{/checkout}" class="checkout btn btn-success">
+                <button>Proceed to Buy</button>
+            </a>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/make-up/User/user.js"></script>
+</body>
+
+</html>
+
+<!-- 
                 <tr th:each="cartItem : ${cartItemList}">
                     <td th:text="${cartItem.product.name}"></td>
                     <td>
@@ -53,19 +118,4 @@
                 </tr>
             </tbody>
         </table>
-        <div th:if="${#lists.isEmpty(cartItemList)}" style="text-align: center;">
-            <p style="color: #ffffff8f;">Your Cart is Empty.</p>
-        </div>
-
-        <h2>Total Price : ₹<span th:text="${TotalCartPrice}"></span></h2>
-
-        <a href="@{/checkout}" class="checkout btn btn-success">Proceed to Checkout</a>
-    </main>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="/make-up/User/user.js"></script>
-</body>
-
-</html>
+       -->
