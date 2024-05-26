@@ -16,8 +16,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.ecomweb.DTOs.ProductsDto;
+import com.example.ecomweb.Entity.CartBean;
+import com.example.ecomweb.Entity.CartItemBean;
 import com.example.ecomweb.Entity.ProductsBean;
 import com.example.ecomweb.Entity.UserBean;
+import com.example.ecomweb.Repos.CartItemRepository;
 import com.example.ecomweb.Services.ProductsService;
 import com.example.ecomweb.Services.UserServices;
 
@@ -31,6 +34,9 @@ public class AdminProductsController {
 
     @Autowired
     private UserServices userServices;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
     // ## 2 EXCLUSIVE METHODs, NOT RELATED TO PRODUCTS ## //
     @GetMapping("/userList")
@@ -83,6 +89,10 @@ public class AdminProductsController {
 
     @GetMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {
+        ProductsBean productsBean = productsService.findById(id);
+        System.out.println("Deleting Product : " + productsBean.getName() + " - From Project");
+        List<CartItemBean> cartItems = cartItemRepository.findAllByProduct(productsBean);
+        cartItemRepository.deleteAll(cartItems);
         productsService.deleteById(id);
         return "redirect:/admin-panel/products";
     }

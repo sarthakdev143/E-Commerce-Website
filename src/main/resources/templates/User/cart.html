@@ -26,7 +26,8 @@
                 <article class="cart-item flex" th:each="cartItem : ${cartItemList}">
                     <div class="left">
                         <figure>
-                            <img th:src="@{/images/{name}(name=${cartItem.product.name})}" alt="Product Image">
+                            <img loading="lazy" th:src="@{/images/{name}(name=${cartItem.product.name})}"
+                                alt="Product Image">
                         </figure>
                     </div>
                     <div class="right flex">
@@ -37,17 +38,13 @@
                             <form class="quantity-wrapper" th:action="@{/cart/updateQuantity}" method="post">
                                 <input type="hidden" th:value="${cartItem.product.name}" name="cartItemName" />
                                 <label for="quantity-${cartItem.product.name}">Quantity :-</label>
-                                <!-- <div class="quantity-input flex">
-                                    <button type="button" class="quantity-button"
-                                        onclick="changeQuantity(-1, '${cartItem.product.name}')">-</button>
-                                    <input type="number" id="quantity-${cartItem.product.name}"
-                                        th:value="${cartItem.quantity}" name="quantity" min="1" readonly />
-                                    <button type="button" class="quantity-button"
-                                        onclick="changeQuantity(1, '${cartItem.product.name}')">+</button>
-                                </div> -->
                                 <input type="number" id="quantity-${cartItem.product.name}"
                                     th:value="${cartItem.quantity}" name="quantity" min="1" max="10" />
                                 <button type="submit">Update</button>
+                            </form>
+                            <form class="delete-button" th:action="@{/cart/remove}" method="post">
+                                <input type="hidden" th:value="${cartItem.product.name}" name="cartItemName">
+                                <input type="submit" value="Delete">
                             </form>
                         </div>
                         <div class="part-2">
@@ -55,7 +52,8 @@
                                 <span>Price : </span>
                                 <span th:text="${cartItem.product.price}"></span>
                             </h3>
-                            <h3 title="It is The Total Price Of Product With Multiplication With its Quantity" class="subTotal flex">
+                            <h3 title="It is The Total Price Of Product With Multiplication With its Quantity"
+                                class="subTotal flex">
                                 <span>SubTotal
                                     : </span>
                                 <span>₹<span
@@ -72,7 +70,7 @@
             <section class="total-price">
                 <h2>Total Price : ₹<span th:text="${TotalCartPrice}"></span></h2>
 
-                <a href="@{/checkout}" class="checkout btn btn-success">
+                <a th:href="@{/checkout}" class="checkout btn btn-success">
                     <button>Proceed to Buy</button>
                 </a>
             </section>
@@ -94,28 +92,3 @@
 </body>
 
 </html>
-
-<!-- 
-                <tr th:each="cartItem : ${cartItemList}">
-                    <td th:text="${cartItem.product.name}"></td>
-                    <td>
-                        <form class="quantity-wrapper" th:action="@{/cart/updateQuantity}" method="post">
-                            <input type="hidden" th:value="${cartItem.product.name}" name="cartItemName" />
-                            <input type="number" th:value="${cartItem.quantity}" name="quantity" min="1" />
-                            <button type="submit">Update</button>
-                        </form>
-                    </td>
-                    <td th:text="${cartItem.product.price}"></td>
-                    <td>₹<span
-                            th:text="${@conversionService.convertStringToInt(cartItem.product.price) * cartItem.quantity}"></span>
-                    </td>
-                    <td>
-                        <form th:action="@{/cart/remove}" method="post">
-                            <input type="hidden" th:value="${cartItem.id}" name="cartItemId" />
-                            <button type="submit">Remove</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-       -->

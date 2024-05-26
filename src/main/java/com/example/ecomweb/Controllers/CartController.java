@@ -133,8 +133,20 @@ public class CartController {
     }
 
     @PostMapping("/remove")
-    public String RemoveCartItem(@RequestParam("cartItemId") Long id) {
-        cartItemRepository.deleteById(id);
+    public String RemoveCartItem(@ModelAttribute("cartItemName") String name) {
+        System.out.println("Entered Controller Method of Deletation of : " + name + " from cart");
+        ProductsBean productsBean = productsService.findByName(name);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        UserBean userBean = userServices.findByEmail(email);
+        CartBean cartBean = cartRepository.findByUser(userBean);
+        cartService.removeCartItem(cartBean, productsBean);
         return "redirect:/cart";
+    }
+
+    @GetMapping("/checkout")
+    public String checkout() {
+        System.out.println("Checking out The Cart Items..");
+        return "User/index";
     }
 }

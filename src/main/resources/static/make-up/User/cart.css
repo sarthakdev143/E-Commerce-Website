@@ -39,40 +39,55 @@
 
                 position: relative;
 
-                .right .part-2 {
-                    position: absolute;
-                    top: 1.5rem;
-                    right: 1.5rem;
+                .right {
 
-                    .price {
-                        gap: 1rem;
+                    .part-1 .delete-button {
+                        position: absolute;
+                        right: 1.5rem;
+                        bottom: 1rem;
+
+                        input {
+                            background: rgb(238, 66, 66);
+                            width: 7rem;
+                            height: 3rem;
+                        }
                     }
 
-                    h3 {
-                        width: 100%;
-                        gap: 1rem;
-                    }
+                    .part-2 {
+                        position: absolute;
+                        top: 1.5rem;
+                        right: 1.5rem;
 
-                    .subTotal {
-                        justify-content: center;
-                        align-items: center;
+                        .price {
+                            gap: 1rem;
+                        }
 
-                        &::before {
-                            scale: 0.7;
-                            content: "i";
-                            margin-left: -1.8rem;
-                            margin-right: -0.5rem;
-                            border: 0.1rem solid;
-                            width: 1rem;
-                            height: 1rem;
-                            padding: 0.6rem;
-                            font-size: initial;
-                            display: flex;
+                        h3 {
+                            width: 100%;
+                            gap: 1rem;
+                        }
+
+                        .subTotal {
                             justify-content: center;
                             align-items: center;
-                            border-radius: 50%;
-                            font-weight: 500;
-                            cursor: pointer;
+
+                            &::before {
+                                scale: 0.7;
+                                content: "i";
+                                margin-left: -1.8rem;
+                                margin-right: -0.5rem;
+                                border: 0.1rem solid;
+                                width: 1rem;
+                                height: 1rem;
+                                padding: 0.6rem;
+                                font-size: initial;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                border-radius: 50%;
+                                font-weight: 500;
+                                cursor: pointer;
+                            }
                         }
                     }
                 }

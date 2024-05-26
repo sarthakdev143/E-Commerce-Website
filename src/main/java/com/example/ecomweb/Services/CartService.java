@@ -76,4 +76,11 @@ public class CartService {
         cartItemBean.setQuantity(quantity);
         cartItemRepository.save(cartItemBean);
     }
+
+    public void removeCartItem(CartBean cart, ProductsBean productsBean) {
+        System.out.println("Entered Remove Cart Item Method in Service..");
+        CartItemBean cartItemBean = cartItemRepository.findByCartAndProduct(cart, productsBean);
+        System.out.println("Deleting Cart Item : " + cartItemBean.getProduct().getName());
+        cartItemRepository.delete(cartItemBean);
+    }
 }
